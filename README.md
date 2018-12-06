@@ -1,10 +1,16 @@
 # Aladdin Fabric Development Kit
 
-Aladdin Fabric development kit, codename `Maejor`, was created to support developers building [Aladdin Blockchain Technologies Ltd](https://aladdinid.com/) a Fabric based [Proof-of-Concept (PoC) medical audit trail](https://www.youtube.com/watch?v=vJmhwymh-eU). Following from the PoC, Aladdin has decided to open source the developer kit.
+[Aladdin Blockchain Technologies Ltd](https://aladdinid.com/) sponsored the creation of the Fabric development kit, which was codename `Maejor`. The kit was developed by [Elemental Concept](http://elementalconcept.com/) who then use it to build a Fabric based [Proof-of-Concept (PoC) medical audit trail](https://www.youtube.com/watch?v=vJmhwymh-eU). 
 
-The development kit was intended to help developers:
+Following from the PoC, Aladdin has kindly open source the developer kit and make it available to the wider Blockchain developers' community to add more features.
 
-* learn, through experimentation, the system architecture of Hyperledger Fabric (Fabric);
+The maintainer(s) of this project is grateful to Aladdin for sponsoring the effort to create the kit and donating the code to this community.
+
+## Design goals
+
+The design goals of the kit are to help developers:
+
+* learn, through a series of smoke tests, the system architecture of Hyperledger Fabric (Fabric);
 * define, instantiate and configure a Fabric network to support development effort;
 * verify that apps developed to interact with the Fabric network meets expectation.
 
@@ -13,12 +19,6 @@ The development kit has three components:
 * Example Go chaincodes
 * Reference implementations
 * Command line interface (CLI) known as `maejor`
-
-### Example Go chaincodes
-
-## Acknowledgement
-
-The maintainer(s) of this project is grateful to Aladdin for sponsoring the effort to create this developer kit.
 
 ## Release notes
 
