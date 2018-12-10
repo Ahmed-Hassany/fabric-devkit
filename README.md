@@ -77,6 +77,7 @@ Please refer to [README](./maejor/README.md) for implementation information.
 
 | Item | Description |
 | --- | --- |
+| `fabric-ca-test` | Smoke test to help developers appreciate the operations of `fabric-ca` |
 | `multichain` | This is an example of an implementation involving two organisational nodes with two channels. It also based on the very latest Fabric implementation. |
 | `twoorgs` | This is a full end-to-end example based on two organisational nodes, one channel, Fabric Node SDK, Hyperledger Explorer and Fabric 1.1.0. |
 

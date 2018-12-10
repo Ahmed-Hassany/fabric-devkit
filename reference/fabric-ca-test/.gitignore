@@ -1,0 +1,10 @@
+.DS_Store
+fabric-ca-server/
+fabric-ca-client-home/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Javascript stuff
+node_modules/
