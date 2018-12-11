@@ -4,14 +4,9 @@ CHANNEL_ONE_NAME=channelone
 CHANNEL_ONE_PROFILE=ChannelOne
 CHANNEL_TWO_NAME=channeltwo
 CHANNEL_TWO_PROFILE=ChannelTwo
-ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 
-if [ -d ./assets/channel-artifacts ]; then
-    rm -rf ./assets/channel-artifacts
-fi
-
-if [ -d ./assets/crypto-config ]; then
-    rm -rf ./assets/crypto-config
+if [ -d ./assets ]; then
+    rm -rf ./assets
 fi
 
 cryptogen generate --config=./crypto-config.yaml --output="./assets/crypto-config"
