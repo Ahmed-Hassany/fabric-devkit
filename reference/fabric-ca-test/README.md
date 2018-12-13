@@ -1,27 +1,23 @@
 # Introduction
 
-Hyperledger Fabric CA is an implementation of a Certificate Authority (CA) intended for a Fabric network.
-
-This is a smoke test for developer to analyse the capabilities of fabric-ca-server.
+Please refer to [Fabric CA User's Guide](https://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html#enrolling-the-bootstrap-identity).
 
 # Content
 
-In this repository you will find the following items:
+The [scripts](./scripts) simulates:
 
-| Item | Description |
-| --- | --- |
-| [fabric-ca-client](./fabric-ca-client) | Contains test scenarios based on interactions between two fabric CA cli tools: `fabric-ca-client` and `fabric-ca-server`|
+* registration of an identity after a failed enrollment;
 
-# Fabric ca client test scenario
+* registration of an identity after a successful enrollment of a client;
 
-In this scenario we are using the `fabric-ca-client` cli, packaged in a container, interacting with `fabric-ca-server`, also packaged in a container.
+* revokation of an identity.
 
---------------------                             --------------------
-| fabric-ca-client | ---- {enroll, register} ---> | fabric-ca-server |
---------------------                             --------------------
+# How to use this test
 
-* `fabric-ca-client` container includes scripts representing different enrollment and registration scenarios.
+To run execute the script follow these steps:
 
-* `fabric-ca-server` container items described in [Fabric CA Server](https://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html#fabric-ca-server)
+STEP 1: Ensure that fabric-ca-server is running. Run `./test.sh reset`, to ensure that you get a clean test environment, then run `./test.sh start` to get a running client and server.
 
-Please refer to [fabric-ca-client/README.md](./fabric-ca-client/README.md) for instruction on how to run test.
+STEP 2: Run the command `./test.sh cli` to access the client-cli container terminal.
+
+STEP 3: In client-cli terminal, execute the command `./scripts/<name of script you wish to run>`.
