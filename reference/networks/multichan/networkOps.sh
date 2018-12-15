@@ -1,7 +1,6 @@
 #!/bin/bash
 
 docker rm -f $(docker ps -aq)
-docker rmi -f $(docker images -q)
 
 docker-compose up -d orderer.example.com
 docker-compose up -d couchdb0
