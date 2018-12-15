@@ -4,7 +4,7 @@ services:
 
   fabric-ca-server:
     container_name: fabric-ca-server
-    image: hyperledger/fabric-ca
+    image: hyperledger/fabric-ca:${TAG}
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
     ports:
