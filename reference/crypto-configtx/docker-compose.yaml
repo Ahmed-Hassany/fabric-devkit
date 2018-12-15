@@ -4,7 +4,7 @@ services:
 
   fabric-tools:
     container_name: fabric-tools
-    image: hyperledger/fabric-tools
+    image: hyperledger/fabric-tools:${TAG}
     tty: true
     environment:
       - GOPATH=/opt/gopath
