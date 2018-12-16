@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  test-node:
+    build:
+      context: ../
+    image: test-node
+    container_name: test-node
+    working_dir: /opt
+    ports:
+      - 9000:8080
+    volumes:
+      - ./config:/opt/config

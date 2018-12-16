@@ -1,0 +1,22 @@
+{
+  "name": "fabric-rest",
+  "version": "0.0.1",
+  "description": "A simple RESTful interface to illustrate the use of Fabric node sdk",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "Fabric",
+    "Node",
+    "SDK"
+  ],
+  "author": "Paul Sitoh",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "express": "4.16.4",
+    "http": "0.0.0",
+    "log4js": "3.0.6"
+  }
+}
