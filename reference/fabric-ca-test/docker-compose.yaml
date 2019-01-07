@@ -13,6 +13,8 @@ services:
     working_dir: /etc/hyperledger/fabric-ca-server
     volumes:
       - ./fabric-ca-server:/etc/hyperledger/fabric-ca-server
+    networks:
+      - test
 
   client-cli:
     container_name: client-cli
@@ -26,3 +28,8 @@ services:
       - ./scripts:/opt/wd/scripts
       - ./fabric-ca-client-home:/etc/hyperledger/fabric-ca-client-home
       - ./fabric-ca-server:/opt/wd/fabric-ca-server
+    networks:
+      - test
+
+networks:
+  test:

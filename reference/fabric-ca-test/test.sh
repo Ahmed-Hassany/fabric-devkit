@@ -2,20 +2,8 @@
 
 command=$1
 option=$2
-caversion=$3
 
-message="Usage: $0 start <ca-version> | reset | cli"
-
-function pullDockerImages(){
-
-    if [ -z $caversion ]; then
-        docker pull hyperledger/fabric-ca
-    else
-        docker pull hyperledger/fabric-ca:$caversion
-        docker pull hyperledger/fabric-ca:$caversion  hyperledger/fabric-ca
-    fi
-
-}
+message="Usage: $0 start | reset | cli"
 
 function cleanGeneratedItems(){
 
@@ -31,7 +19,6 @@ function cleanGeneratedItems(){
 
 case $command in
     start)
-        pullDockerImages
         docker-compose up -d
         ;;
     reset)
