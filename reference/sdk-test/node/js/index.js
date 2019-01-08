@@ -4,6 +4,7 @@ logger.level = require('./config/service-config.json').loggingLevel;
 
 const express = require('express');
 const app = express();
+
 const bodyParser = require('body-parser');
 // support parsing application/json type post data
 app.use(bodyParser.json()); 

@@ -135,7 +135,7 @@ services:
       - ./channel-artefacts/:/opt/gopath/src/github.com/hyperledger/fabric/channel-artefacts/
       - ./cli-scripts/share/:/opt/gopath/src/github.com/hyperledger/fabric/share/
       - ./cli-scripts/org1/:/opt/gopath/src/github.com/hyperledger/fabric/scripts/
-      - ../../../chaincodes/:/opt/gopath/src/github.com/hyperledger/fabric/chaincodes/
+      - ${CHAINCODE_PATH}:/opt/gopath/src/github.com/hyperledger/fabric/chaincodes/
     networks:
       - fabric-network
 
@@ -237,7 +237,7 @@ services:
       - ./channel-artefacts/:/opt/gopath/src/github.com/hyperledger/fabric/channel-artefacts/
       - ./cli-scripts/share/:/opt/gopath/src/github.com/hyperledger/fabric/share/
       - ./cli-scripts/org2/:/opt/gopath/src/github.com/hyperledger/fabric/scripts/
-      - ../../../chaincodes/:/opt/gopath/src/github.com/hyperledger/fabric/chaincodes/
+      - ${CHAINCODE_PATH}:/opt/gopath/src/github.com/hyperledger/fabric/chaincodes/
     networks:
       - fabric-network
 
