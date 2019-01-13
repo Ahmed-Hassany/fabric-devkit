@@ -1,7 +1,5 @@
 #!/bin/bash
 
-docker rm -f $(docker ps -aq)
-
 docker-compose up -d orderer.example.com
 docker-compose up -d couchdb0
 docker-compose up -d couchdb1
