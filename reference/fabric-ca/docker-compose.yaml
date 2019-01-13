@@ -14,7 +14,7 @@ services:
     volumes:
       - ./fabric-ca-server:/etc/hyperledger/fabric-ca-server
     networks:
-      - test
+      - ${NETWORKS}
 
   client-cli:
     container_name: client-cli
@@ -29,7 +29,7 @@ services:
       - ./fabric-ca-client-home:/etc/hyperledger/fabric-ca-client-home
       - ./fabric-ca-server:/opt/wd/fabric-ca-server
     networks:
-      - test
+      - ${NETWORKS}
 
 networks:
-  test:
+  fabric-ca:
