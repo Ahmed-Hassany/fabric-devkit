@@ -1,7 +1,9 @@
 #!/bin/bash
 
-CHANNEL_NAME=mychannel
-CHANNEL_PROFILE=MyChannel
+CHANNEL_ONE_NAME=channelone
+CHANNEL_ONE_PROFILE=ChannelOne
+CHANNEL_TWO_NAME=channeltwo
+CHANNEL_TWO_PROFILE=ChannelTwo
 
 if [ -d ./channel-artefacts ]; then
     rm -rf ./channel-artefacts
@@ -19,7 +21,11 @@ fi
 
 configtxgen -profile OrdererGenesis -outputBlock ./channel-artefacts/genesis.block
 
-configtxgen -profile ${CHANNEL_PROFILE} -outputCreateChannelTx ./channel-artefacts/${CHANNEL_NAME}.tx -channelID $CHANNEL_NAME
+configtxgen -profile ${CHANNEL_ONE_PROFILE} -outputCreateChannelTx ./channel-artefacts/${CHANNEL_ONE_NAME}.tx -channelID $CHANNEL_ONE_NAME
+configtxgen -profile ${CHANNEL_TWO_PROFILE} -outputCreateChannelTx ./channel-artefacts/${CHANNEL_TWO_NAME}.tx -channelID $CHANNEL_TWO_NAME
 
-# generate anchor peer for channelone transaction of org1 
-#configtxgen -profile ${CHANNEL_PROFILE} -outputAnchorPeersUpdate ./channel-artefacts/Org1MSPanchors_${CHANNEL_NAME}.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+configtxgen -profile ${CHANNEL_ONE_PROFILE} -outputAnchorPeersUpdate ./channel-artefacts/Org1MSPanchors_${CHANNEL_ONE_NAME}.tx -channelID $CHANNEL_ONE_NAME -asOrg Org1MSP
+configtxgen -profile ${CHANNEL_ONE_PROFILE} -outputAnchorPeersUpdate ./channel-artefacts/Org2MSPanchors_${CHANNEL_ONE_NAME}.tx -channelID $CHANNEL_ONE_NAME -asOrg Org2MSP
+
+configtxgen -profile ${CHANNEL_TWO_PROFILE} -outputAnchorPeersUpdate ./channel-artefacts/Org1MSPanchors_${CHANNEL_TWO_NAME}.tx -channelID $CHANNEL_TWO_NAME -asOrg Org1MSP
+configtxgen -profile ${CHANNEL_TWO_PROFILE} -outputAnchorPeersUpdate ./channel-artefacts/Org2MSPanchors_${CHANNEL_TWO_NAME}.tx -channelID $CHANNEL_TWO_NAME -asOrg Org2MSP
