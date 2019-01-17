@@ -5,8 +5,7 @@ usage_message="Useage: $0 init | status | re-start | clean "
 ARGS_NUMBER="$#"
 COMMAND="$1"
 
-chaincode_containers=$(docker ps -a | grep dev-peer* | awk '/dev-peer*/ {print $1}')
-chaincode_images=$(docker images | grep dev-peer* | awk '/dev-peer*/ {print $3}')
+
 
 function createCryptoChannelArtefacts(){
     rm -rf ./channel-artefacts
@@ -84,41 +83,12 @@ function status(){
 }
 
 function clearContainers(){
-
-    echo "Removing chaincode containers"
-    echo
-    if [ ! -z $chaincode_containers ]; then
-        docker rm -f $chaincode_containers
-    fi
-
-    echo "Removing chaincode images"
-    echo
-    if [ ! -z $chaincode_images ]; then
-        docker rmi -f $chaincode_images
-    fi
-    echo
-
-    echo "Removing orderer containers"
-    docker rm -f orderer.solo.network
-    echo
-
-    echo "Removing org1 containers"
-    docker rm -f ca.org1.solo.network
-    docker rm -f peer0.db.org1.solo.network
-    docker rm -f peer0.org1.solo.network
-    docker rm -f cli.org1.solo.network
-    echo
-    
-    echo "Removing org2 containers"
-    docker rm -f ca.org2.solo.network
-    docker rm -f peer0.db.org2.solo.network
-    docker rm -f peer0.org2.solo.network
-    docker rm -f cli.org2.solo.network   
+    containers=$( docker ps -aq --filter "network=solo_fabric-network")
+    docker rm -f $containers
 }
 
 case $COMMAND in
     "init")
-        clearFabricAssets
         clearContainers
         createCryptoChannelArtefacts
         renameSecretPrivKeys
@@ -138,8 +108,8 @@ case $COMMAND in
         status
         ;;
     "clean")
-        clearFabricAssets
         clearContainers
+        clearFabricAssets
         ;;				
     *)
         echo $usage_message
