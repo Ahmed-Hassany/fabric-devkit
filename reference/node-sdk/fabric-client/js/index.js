@@ -1,6 +1,6 @@
 const log4js = require('log4js');
 const logger = log4js.getLogger('FabricRESTFul');
-logger.level = require('./config/service-config.json').loggingLevel;
+logger.level = 'debug';
 
 const express = require('express');
 const app = express();

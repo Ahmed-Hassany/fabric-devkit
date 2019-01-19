@@ -1,3 +1,4 @@
-js/test
-js/node_modules
-js/npm-debug.log
+node_modules
+npm-debug.log
+build.sh
+Dockerfile

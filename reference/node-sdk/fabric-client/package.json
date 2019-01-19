@@ -4,19 +4,31 @@
   "description": "A simple RESTful interface to illustrate the use of Fabric node sdk",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "test": "mocha --recursive",
+    "unit:test": "mocha test/*.unit.js",
+    "start": "node js/index.js"
   },
   "keywords": [
     "Fabric",
     "Node",
     "SDK"
   ],
+  "engines": {
+    "node": ">=8.9.4 <9.0",
+    "npm": ">=5.6.0 <6.0"
+  },
   "author": "Paul Sitoh",
   "license": "Apache-2.0",
   "dependencies": {
     "body-parser": "1.18.3",
     "express": "4.16.4",
+    "fabric-ca-client": "1.4.0",
+    "fabric-client": "~1.4.0",
     "http": "0.0.0",
     "log4js": "3.0.6"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "mocha": "5.2.0"
   }
 }
