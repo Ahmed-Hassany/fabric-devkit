@@ -25,7 +25,7 @@ function clearContainers(){
 }
 
 function clearChaincodeImages(){
-    cc_images = $( docker images -a | awk '/dev-*/ {print $3}' )
+    cc_images=$( docker images -a | awk '/dev-*/ {print $3}' )
     docker rmi -f $cc_images
 }
 
@@ -60,8 +60,8 @@ function clearCAClientToolkitAssets(){
 
 case $COMMAND in
     "start")
-        clearChaincodeImages
         clearContainers
+        clearChaincodeImages
         createCryptoChannelArtefacts
         clearFabricCAArtefacts
         clearCAClientToolkitAssets
@@ -69,8 +69,8 @@ case $COMMAND in
         startNetwork
         ;;
     "clean")
-        clearChaincodeImages
         clearContainers
+        clearChaincodeImages
         clearCryptoChannelArtefacts
         clearFabricCAArtefacts
         clearCAClientToolkitAssets
