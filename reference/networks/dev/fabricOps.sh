@@ -24,6 +24,11 @@ function clearContainers(){
     docker rm -f $(docker ps --filter "network=dev_fabric-network" -aq)
 }
 
+function clearChaincodeImages(){
+    cc_images = $( docker images -a | awk '/dev-*/ {print $3}' )
+    docker rmi -f $cc_images
+}
+
 function clearCryptoChannelArtefacts(){
     rm -rf ./channel-artefacts
     rm -rf ./crypto-config
@@ -44,17 +49,31 @@ function startNetwork(){
     docker exec cli.org1.dev /bin/bash -c '${PWD}/scripts/instantiateCC.sh'
 }
 
+function createCAClientToolkit(){
+    docker build -t workingwithblockchain/fabric-ca-client-toolkit ./ca-client-toolkit
+}
+
+function clearCAClientToolkitAssets(){
+    docker rmi -f workingwithblockchain/fabric-ca-client-toolkit
+    rm -rf ./ca-client-toolkit/msp
+}
+
 case $COMMAND in
     "start")
+        clearChaincodeImages
         clearContainers
         createCryptoChannelArtefacts
         clearFabricCAArtefacts
+        clearCAClientToolkitAssets
+        createCAClientToolkit
         startNetwork
         ;;
     "clean")
+        clearChaincodeImages
         clearContainers
         clearCryptoChannelArtefacts
         clearFabricCAArtefacts
+        clearCAClientToolkitAssets
         ;;
     *)
         echo $usage_message
