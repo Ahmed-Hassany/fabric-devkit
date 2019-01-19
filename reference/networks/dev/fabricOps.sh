@@ -29,6 +29,10 @@ function clearCryptoChannelArtefacts(){
     rm -rf ./crypto-config
 }
 
+function clearFabricCAArtefacts(){
+    rm -rf ./fabric-ca-home
+}
+
 function startNetwork(){
     docker-compose -f ./docker-compose.yaml up -d orderer.dev
     docker-compose -f ./docker-compose.yaml up -d ca.org1.dev
@@ -44,11 +48,13 @@ case $COMMAND in
     "start")
         clearContainers
         createCryptoChannelArtefacts
+        clearFabricCAArtefacts
         startNetwork
         ;;
     "clean")
         clearContainers
         clearCryptoChannelArtefacts
+        clearFabricCAArtefacts
         ;;
     *)
         echo $usage_message
