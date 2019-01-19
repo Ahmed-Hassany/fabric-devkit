@@ -125,8 +125,8 @@ services:
     networks:
       - ${NETWORKS}
 
-  ca-client-toolkit.dev:
-    container_name: ca-client-toolkit.dev
+  ca-cli.dev:
+    container_name: ca-cli.dev
     image: workingwithblockchain/fabric-ca-client-toolkit
     tty: true
     environment:
