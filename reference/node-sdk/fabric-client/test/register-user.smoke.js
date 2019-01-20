@@ -25,13 +25,28 @@ describe('register-user', ()=>{
 
     describe('Having loaded the instance with client configuration', ()=>{
         const keyvaluestore = '/tmp/fabric-client-kv-org1';
-        context('and instantiating the credential store', async ()=>{
-            await client.initCredentialStores();
-            it(`expects the creation of key value store in ${keyvaluestore}`, ()=>{
+        context('and instantiating the credential store', ()=>{
+            it(`expects the creation of key value store in ${keyvaluestore}`, async ()=>{
+                await client.initCredentialStores();
                 expect(fs.existsSync(keyvaluestore)).to.be.true;
             });
         });
 
+        context('and checking for existing user context in key value store', ()=>{
+
+            const files = fs.readdirSync(keyvaluestore);
+            if (files.length == 0){
+                it('expects user context to be null', async ()=>{
+                    const user = await client.getUserContext('admin');
+                    expect(user).to.be.null;
+                });
+            }else{
+                it('expects user context to be not null', async ()=>{
+                    const user = await client.getUserContext('admin');
+                    expect(user).to.be.not.null;
+                });
+            }
+        });
     });
 
 });
