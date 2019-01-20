@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage_message="Useage: $0 init | unit | production | clean"
+usage_message="Useage: $0 init | unit | smoke | production | clean"
 
 ARGS_NUMBER="$#"
 COMMAND="$1"
@@ -21,13 +21,18 @@ function testBuildImage(){
 }
 
 function runUnitTest(){
-    docker-compose run fabric-client-node.dev /bin/bash -c 'npm run unit:test'
+    docker-compose run --rm fabric-client-node.dev /bin/bash -c 'npm run unit:test'
+}
+
+function runSmokeTest(){
+    docker-compose run --rm fabric-client-node.dev /bin/bash -c 'npm run smoke:test'
 }
 
 function clean(){
     pushd ../../networks/dev/
         ./fabricOps.sh clean
     popd
+    rm -rf ./tmp
     docker rmi -f workingwithblockchain/fabric-client-node
     docker rmi -f $(docker images -f "dangling=true" -q)
 }
@@ -39,6 +44,9 @@ case $COMMAND in
         ;;
     "unit")
         runUnitTest
+        ;;
+    "smoke")
+        runSmokeTest
         ;;
     "production")
         productionBuild

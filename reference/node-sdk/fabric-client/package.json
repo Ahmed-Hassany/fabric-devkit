@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --recursive",
     "unit:test": "mocha test/*.unit.js",
+    "smoke:test": "mocha test/*.smoke.js",
     "start": "node js/index.js"
   },
   "keywords": [

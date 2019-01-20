@@ -12,6 +12,7 @@ services:
       - ../../networks/dev/crypto-config:/opt/crypto-config
       - ../../networks/dev/channel-artefacts:/opt/channel-artefacts
       - ./test:/opt/test
+      - ./tmp:/tmp
     networks:
       - ${NETWORKS}
       

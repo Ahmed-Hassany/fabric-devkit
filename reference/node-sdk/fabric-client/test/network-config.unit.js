@@ -1,4 +1,4 @@
-const expect = require('chai').expect
+const expect = require('chai').expect;
 const FabricClient = require('fabric-client');
 
 describe('network-config', ()=>{
