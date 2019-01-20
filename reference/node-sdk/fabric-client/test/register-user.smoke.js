@@ -29,7 +29,7 @@ describe('register-user', ()=>{
             await client.initCredentialStores();
             it(`expects the creation of key value store in ${keyvaluestore}`, ()=>{
                 expect(fs.existsSync(keyvaluestore)).to.be.true;
-            })
+            });
         });
 
     });
