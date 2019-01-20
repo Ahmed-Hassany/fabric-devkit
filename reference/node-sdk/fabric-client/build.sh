@@ -21,13 +21,7 @@ function testBuildImage(){
 }
 
 function runUnitTest(){
-    docker run -v $PWD/../../networks/dev/network-config.yaml:/opt/network-config.yaml \
-           -v $PWD/../../networks/dev/org.yaml:/opt/org.yaml \
-           -v $PWD/../../networks/dev/crypto-config:/opt/crypto-config \
-           -v $PWD/../../networks/dev/channel-artefacts:/opt/channel-artefacts \
-           -v $PWD/test:/opt/test \
-           --network dev_fabric-network \
-           -w /opt --rm workingwithblockchain/fabric-client-node /bin/bash -c 'npm run unit:test'
+    docker-compose run fabric-client-node.dev /bin/bash -c 'npm run unit:test'
 }
 
 function clean(){
