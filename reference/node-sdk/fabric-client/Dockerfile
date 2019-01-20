@@ -1,7 +1,6 @@
 # Test image
 FROM node:8.15 as test
 
-RUN python --version
 
 ENV PORT 8080
 ADD ./js /opt/js
