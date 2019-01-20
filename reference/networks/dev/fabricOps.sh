@@ -49,23 +49,12 @@ function startNetwork(){
     docker exec cli.org1.dev /bin/bash -c '${PWD}/scripts/instantiateCC.sh'
 }
 
-function createCAClientToolkit(){
-    docker build -t workingwithblockchain/fabric-ca-client-toolkit ./ca-client-toolkit
-}
-
-function clearCAClientToolkitAssets(){
-    docker rmi -f workingwithblockchain/fabric-ca-client-toolkit
-    rm -rf ./ca-client-toolkit/msp
-}
-
 case $COMMAND in
     "start")
         clearContainers
         clearChaincodeImages
         createCryptoChannelArtefacts
         clearFabricCAArtefacts
-        clearCAClientToolkitAssets
-        createCAClientToolkit
         startNetwork
         ;;
     "clean")
@@ -73,7 +62,6 @@ case $COMMAND in
         clearChaincodeImages
         clearCryptoChannelArtefacts
         clearFabricCAArtefacts
-        clearCAClientToolkitAssets
         ;;
     *)
         echo $usage_message
