@@ -43,6 +43,7 @@ case $COMMAND in
         testBuildImage
         ;;
     "unit")
+        testBuildImage
         runUnitTest
         ;;
     "smoke")

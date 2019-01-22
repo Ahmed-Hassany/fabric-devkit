@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const FabricClient = require('fabric-client');
 
 describe('network-config', ()=>{
-  const client = FabricClient.loadFromConfig(__dirname + '/../network-config.yaml');
+  const client = FabricClient.loadFromConfig(__dirname + '/fixtures/network-config.yaml');
 
   describe("When I instantiate a fabric client from network-config file", ()=>{
     it('expects to return an instance of a fabric client', ()=>{
