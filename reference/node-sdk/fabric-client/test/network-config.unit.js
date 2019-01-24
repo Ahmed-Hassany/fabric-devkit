@@ -26,6 +26,4 @@ describe('network-config', ()=>{
     });
 
   });
-
-
-})
+});
