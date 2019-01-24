@@ -48,6 +48,10 @@ Features:
 * A `fabric-node-sdk` laboratory comprising of:
   * A section for developing using the `fabric-client` SDK.
 
+Status:
+
+* Under development
+
 ## Content
 
 | Item | Description |
