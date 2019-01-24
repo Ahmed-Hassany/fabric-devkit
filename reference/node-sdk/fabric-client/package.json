@@ -14,23 +14,14 @@
     "Node",
     "SDK"
   ],
+  "repository":{
+    "type": "git",
+    "url": "https://github.com/workingwithblockchain/fabric-devkit/tree/master/reference/node-sdk/fabric-client"
+  },
   "engines": {
     "node": ">=8.9.4 <9.0",
     "npm": ">=5.6.0 <6.0"
   },
   "author": "Paul Sitoh",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "body-parser": "1.18.3",
-    "express": "4.16.4",
-    "fabric-ca-client": "1.4.0",
-    "fabric-client": "~1.4.0",
-    "http": "0.0.0",
-    "log4js": "3.0.6"
-  },
-  "devDependencies": {
-    "chai": "4.2.0",
-    "mocha": "5.2.0",
-    "randomstring": "1.1.5"
-  }
+  "license": "Apache-2.0"
 }

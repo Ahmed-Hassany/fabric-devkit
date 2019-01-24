@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage_message="Useage: $0 init | unit | smoke | production | clean"
+usage_message="Useage: $0 image | start-network | unit | smoke | production | clean"
 
 ARGS_NUMBER="$#"
 COMMAND="$1"
@@ -16,7 +16,7 @@ function productionBuildImage(){
     docker run paulwizviz/fabric-client-api
 }
 
-function testBuildImage(){
+function buildTestImage(){
     docker build --target test -t workingwithblockchain/fabric-client-node .
 }
 
@@ -38,12 +38,13 @@ function clean(){
 }
 
 case $COMMAND in
-    "init")
+    "image")
+        buildTestImage
+        ;;
+    "start-network")
         startDevNetwork
-        testBuildImage
         ;;
     "unit")
-        testBuildImage
         runUnitTest
         ;;
     "smoke")
