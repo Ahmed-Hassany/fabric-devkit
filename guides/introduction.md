@@ -4,6 +4,15 @@ Aladdin's Fabric Developers' Kit (or Fabric Devkit) is a toolbox to help develop
 
 For the purpose of this user guide, we shall use the term 'developer' as a catch-all term to refer to application developers and platform engineers.
 
+## <a href="prerequisite">Prerequisite</a>
+
+Please:
+
+* Install docker (see [installation guide](https://docs.docker.com/install/)).
+* Familiarise yourself with [docker cli](https://docs.docker.com/get-started/).
+* Ensure that you use Linux and macOS to run this kit. If you using windows please use virtual machine.
+* [Install Go](https://golang.org/doc/install#install). 
+
 ## Content
 
 1. [Minimal Go chaincodes](./chaincodes.md) - Describe the purpose and Go chaincode programming.
