@@ -56,45 +56,22 @@ Status:
 
 | Item | Description |
 | --- | --- |
-| `chaincodes` | Example Go chaincodes |
-| `guides` | How-to documentation |
-| `maejor` | Source codes for `maejor` application |
-| `reference` | A collection of smoke testing implementation of a fabric network setup |
-
-### Chaincodes
-
-| Item | Description |
-| --- | --- |
-| `minimalcc` | This is a simple chaincode illustrating the transfer to some numeric value between two parties. |
-| `one` | This is a chaincode intended to be used in conjuction with `solo network` reference implementation. |
-| `two` | This is a chaincode intended to be used in conjunction with `solo network` reference implementation. |
-
-### Guides
-
-| Item | Description |
-| --- | --- |
-| `two-orgs.md` | slated for removal |
-
-### Maejor cli application
-
-Please refer to [README](./maejor/README.md) for implementation information.
-
-### Reference
-
-This section contains a series of laboratories for small experimentation and reference networks.
-
-| Item | Description |
-| --- | --- |
-| `crypto-configtx` | Smoke test to help developers appreciate the mechanics behind `cryptogen` and `configtxgen` |
-| `fabric-ca` | Smoke test to help developers appreciate the operations of `fabric-ca` |
-| `networks` | This contains examples of fabric networks |
-| `twoorgs` | This is slated for removal |
+| [`chaincodes`](./chaincodes) | Example Go chaincodes |
+| [`guides`](./guides) | How-to documentation |
+| [`maejor`](./maejor) | Source codes for `maejor` application |
+| [`reference`](./reference) | A collection of smoke testing implementation of a fabric network setup |
 
 ## Contributions and feedback
 
 The maintainer(s) of this project welcomes feedback and contribution from anyone. 
 
-However, to manage the development lifecycle, Paul Sitoh of Elemental Concept shall be the principal maintainer, and retain sole descretion in deciding any features to be incorporated or removed from this repository. 
+To maintain some order in this project development lifecycle, the principal maintainer shall, currently, retain sole descretion in deciding any features to be incorporated or removed from this repository. 
+
+It is worth emphasising that the long term goal is to have this project supported by multiple maintainers to ensure that there is no single-point-of-failure. A consensus mechanism that can enable this project involve multiple maintainers is currently being established.
+
+## Maintainers
+
+Principal maintainer: Paul Sitoh (Elemental Concept).
 
 ## Disclaimer
 
