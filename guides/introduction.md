@@ -13,11 +13,11 @@ To use this DevKit please follow these steps:
 1. Install docker (see [installation guide](https://docs.docker.com/install/)).
    * Please familiarise yourself with [docker cli](https://docs.docker.com/get-started/).
 2. Install Go.
-  * For macOS, we recommed using [homebrew](https://brew.sh/).
-  * For other platforms please refer to this [installation guide](https://golang.org/doc/install#install).
-  * Additional steps:
-    * Please also ensure that you also install C++ compiler. Refer to your respective platform documentation for instructions.
-    * On Ubuntu you may also need to install a library call ltdl (please refer to apt-get install ltdl-dev).
+   * For macOS, we recommed using [homebrew](https://brew.sh/).
+   * For other platforms please refer to this [installation guide](https://golang.org/doc/install#install).
+   * Additional steps:
+      * Please also ensure that you also install C++ compiler. Refer to your respective platform documentation for instructions.
+      * On Ubuntu you may also need to install a library call ltdl (please refer to apt-get install ltdl-dev).
 3. Set the environmental variable GOPATH to a reference a directory to host your Go source codes and binaries (i.e. Go workspace). For example,
     ```
     export GOPATH=$HOME/go-projects
