@@ -57,7 +57,7 @@ Status:
 | Item | Description |
 | --- | --- |
 | [`chaincodes`](./chaincodes) | Example Go chaincodes |
-| [`guides`](./guides) | How-to documentation |
+| [`guides`](./guides/introduction.md) | How-to documentation |
 | [`maejor`](./maejor) | Source codes for `maejor` application |
 | [`reference`](./reference) | A collection of smoke testing implementation of a fabric network setup |
 
