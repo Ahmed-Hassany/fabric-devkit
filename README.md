@@ -1,8 +1,8 @@
-# Aladdin Fabric Development Kit
+# Aladdin Fabric Developers' Kit
 
-[Aladdin Healthcare Technologies Ltd](https://aladdinid.com/) sponsored the creation of the Fabric development kit, which was codename `Maejor`. The kit was developed by [Elemental Concept](http://elementalconcept.com/) who then use it to build a Fabric based [Proof-of-Concept (PoC) medical audit trail](https://www.youtube.com/watch?v=vJmhwymh-eU). 
+[Aladdin Healthcare Technologies Ltd](https://aladdinid.com/) sponsored the creation of the developers' kit, which was codename `Maejor`. The kit was developed by [Elemental Concept](http://elementalconcept.com/) who then use it to build a Fabric based [Proof-of-Concept (PoC) medical audit trail](https://www.youtube.com/watch?v=vJmhwymh-eU). 
 
-Following from the PoC, Aladdin has kindly open source the developer kit and make it available to the wider Blockchain developers' community to add more features.
+Following from the PoC, Aladdin has kindly open source the developer kit and make it available to the wider blockchain developers' community to add more features.
 
 The maintainer(s) of this project is grateful to Aladdin for sponsoring the effort to create the kit and donating the code to this community.
 
