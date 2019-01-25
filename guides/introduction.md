@@ -4,7 +4,7 @@ Aladdin's Fabric Developers' Kit (or Fabric Devkit) is a toolbox to help develop
 
 For the purpose of this user guide, we shall use the term 'developer' as a catch-all term to refer to application developers and platform engineers.
 
-## <a href="prerequisite">Prerequisite</a>
+## <a name="prerequisite">Prerequisite</a>
 
 This DevKit is available only on macOS and Linux. If you are using Windows, please install a Linux VM.
 
