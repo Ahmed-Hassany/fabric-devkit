@@ -48,7 +48,7 @@ echo
 echo "Expected user in database: "
 echo " admin"
 echo " admin2"
-sqlite3 ./fabric-ca-server/fabric-ca-server.db "select * from users"
+sqlite3 ./fabric-ca-home/fabric-ca-server.db "select * from users"
 
 
 echo
@@ -58,7 +58,7 @@ echo "at fabric-ca-server:7050"
 echo "========================================================="
 echo
 echo "  username: $admin"
-echo "  password: $pwd"
+echo "  password: $passwd"
 echo
 fabric-ca-client enroll -u http://$admin:$passwd@fabric-ca-server:7054 -M misc
 if [ $? -eq 0 ]; then
@@ -85,5 +85,5 @@ echo
 echo
 echo "Expected: $admin revoked"
 echo "Got:"
-sqlite3 ./fabric-ca-server/fabric-ca-server.db "select * from certificates" | grep $admin
+sqlite3 ./fabric-ca-home/fabric-ca-server.db "select * from certificates" | grep $admin
 
