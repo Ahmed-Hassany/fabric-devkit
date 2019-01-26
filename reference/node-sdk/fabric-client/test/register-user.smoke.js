@@ -13,7 +13,7 @@ const cryptoPath = '/tmp/fabric-client-crypto-org1';
 
 describe('register-user', ()=>{
 
-    const networkConfig = path.join(__dirname, '..', 'network-config.yaml');
+    const networkConfig = path.join(__dirname, '..','network-config.yaml');
     const client = FabricClient.loadFromConfig(networkConfig);
     describe(`Given fabric client class and I instantatiate a client by loading the class with ${networkConfig}`, ()=>{
         it(`expects the instance to exists`, ()=>{
