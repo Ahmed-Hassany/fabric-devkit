@@ -4,7 +4,7 @@ services:
 
   fabric-client-node.dev:
     container_name: fabric-client-node.dev
-    image: workingwithblockchain/fabric-client-node
+    image: workingwithblockchain/fabric-client-rest
     working_dir: /opt
     volumes:
       - ./network-config.yaml:/opt/network-config.yaml
@@ -15,6 +15,22 @@ services:
       - ../../node-sdk/fabric-client/wallet:/tmp
     networks:
       - ${NETWORKS}
-      
+
+  rest.org1.dev:
+    container_name: rest.org1.dev
+    image: workingwithblockchain/fabric-client-rest
+    working_dir: /opt
+    volumes:
+      - ./network-config.yaml:/opt/network-config.yaml
+      - ./crypto-config:/opt/crypto-config
+      - ./channel-artefacts:/opt/channel-artefacts
+      - ./org1.yaml:/opt/org1.yaml
+      - ./services.json:/opt/services.json
+      - ./wallet:/tmp
+    ports:
+      - 9000:8080
+    networks:
+      - ${NETWORKS}
+
 networks:
   fabric-network:

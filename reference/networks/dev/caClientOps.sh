@@ -39,6 +39,6 @@ case $COMMAND in
         clean
         ;;
     *)
-        echo usage_message
+        echo $usage_message
         ;;
 esac

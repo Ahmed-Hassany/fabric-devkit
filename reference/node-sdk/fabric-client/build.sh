@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage_message="Useage: $0 image | start-network | unit | smoke | clean"
+usage_message="Useage: $0 image | unit | smoke | clean"
 
 ARGS_NUMBER="$#"
 COMMAND="$1"
@@ -12,7 +12,8 @@ function startDevNetwork(){
 }
 
 function buildTestImage(){
-    docker build --target test -t workingwithblockchain/fabric-client-node .
+    docker build --target test -t workingwithblockchain/fabric-client-test .
+    docker build -t workingwithblockchain/fabric-client-rest .
 }
 
 function runUnitTest(){
@@ -32,7 +33,8 @@ function clean(){
         ./fabricOps.sh clean
     popd
     rm -rf ./wallet
-    docker rmi -f workingwithblockchain/fabric-client-node
+    docker rmi -f workingwithblockchain/fabric-client-test
+    docker rmi -f workingwithblockchain/fabric-client-rest
     docker rmi -f $(docker images -f "dangling=true" -q)
 }
 
@@ -40,14 +42,15 @@ case $COMMAND in
     "image")
         buildTestImage
         ;;
-    "start-network")
-        startDevNetwork
-        ;;
     "unit")
         runUnitTest
         ;;
     "smoke")
+        startDevNetwork
         runSmokeTest
+        ;;
+    "rest")
+        buildRestImage
         ;;
     "clean")
         clean

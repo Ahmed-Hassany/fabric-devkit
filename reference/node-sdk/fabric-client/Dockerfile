@@ -1,7 +1,7 @@
 # Test image
 FROM node:8.15 as test
 
-COPY ./js /opt/js
+COPY ./rest /opt/rest
 COPY ./package.json /opt/package.json
 
 RUN cd /opt && \
@@ -25,7 +25,8 @@ CMD ["npm","test"]
 FROM node:8.15
 
 WORKDIR /opt
-COPY --from=test /opt/js /opt
+COPY --from=test /opt/rest /opt/rest
+COPY --from=test /opt/package.json /opt/package.json
 
 RUN npm install
 

@@ -38,15 +38,6 @@ function clearFabricCAArtefacts(){
     rm -rf ./fabric-ca-home
 }
 
-function clearCAClient(){
-    ./caClientOps.sh clean
-}
-
-function startCAClient(){
-    ./caClientOps.sh build
-    ./caClientOps.sh start
-}
-
 function startNetwork(){
     docker-compose -f ./docker-compose.fabric.yaml up -d orderer.dev
     docker-compose -f ./docker-compose.fabric.yaml up -d ca.org1.dev
@@ -65,10 +56,8 @@ case $COMMAND in
         createCryptoChannelArtefacts
         clearFabricCAArtefacts
         startNetwork
-        startCAClient
         ;;
     "clean")
-        clearCAClient
         clearContainers
         clearChaincodeImages
         clearCryptoChannelArtefacts

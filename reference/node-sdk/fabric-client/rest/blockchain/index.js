@@ -4,19 +4,20 @@ const path = require('path');
 const util = require('util');
 
 const FabricClient = require('fabric-client');
-const serviceConfig = (process.env.ORG === 'Org1')? require('../orgs/org1.json') : require('../orgs/org2.json');;
+const serviceConfig = require('../../services.json');
 
-const configFile = path.join(__dirname,'..','orgs',serviceConfig.configFile);
+const networkConfig = path.join(__dirname,'..','..',serviceConfig.networkConfig);
+const orgConfig = path.join(__dirname, '..', '..', serviceConfig.orgConfig);
 
 const log4js = require('log4js');
-const logger = log4js.getLogger('maejor-blockchain');
-logger.level = serviceConfig.loggingLevel;
-
+const logger = log4js.getLogger('blockchain');
+logger.level = 'debug';
 
 module.exports.getClient = async ()=>{
 
     FabricClient.setLogger(logger);
-    const client = FabricClient.loadFromConfig(configFile);
+	const client = FabricClient.loadFromConfig(networkConfig);
+	client.loadFromConfig(orgConfig);
     await client.initCredentialStores();
     let adminUserObj = await client.getUserContext('admin', true);
     if (adminUserObj == null){
@@ -24,7 +25,6 @@ module.exports.getClient = async ()=>{
     }
     return client;
 }
-
 
 module.exports.invokeTransaction = async (fcn, args) =>	{
 
