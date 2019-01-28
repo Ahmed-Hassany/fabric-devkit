@@ -38,6 +38,10 @@ function clearCryptoChannelArtefacts(){
     rm -rf ./crypto-config
 }
 
+function clearCAArtefacts(){
+    rm -rf ./fabric-ca-home
+}
+
 function startContainers(){
     docker-compose -f ./docker-compose.fabric.yaml up -d orderer.dev
     docker-compose -f ./docker-compose.fabric.yaml up -d ca.org1.dev
@@ -78,7 +82,7 @@ function network(){
 # CA Client
 ca_client_image="workingwithblockchain/ca-client-toolkit"
 ca_client_container="ca.client.org1.dev"
-ca_client_subcommand_message="Useage: $0 ca-client image | start"
+ca_client_subcommand_message="Useage: $0 ca-client image | cli | start"
 
 function buildCAClientImage(){
     pushd ../../fabric-ca-client
@@ -103,8 +107,8 @@ function caCAClientStart(){
     docker-compose -f ./docker-compose.ca-client.yaml up -d $ca_client_container
 }
 
-function clearCAArtefacts(){
-    rm -rf ./fabric-ca-home
+function clearCAClientImage(){
+    docker rmi -f $ca_client_image
 }
 
 function caClient(){
@@ -116,6 +120,9 @@ function caClient(){
         "start")
             buildCAClientImage
             caCAClientStart
+            ;;
+        "cli")
+            caCAClientCLI
             ;;
         *)
             echo $ca_client_subcommand_message
@@ -134,6 +141,7 @@ function fabricClean(){
     clearChaincodeImages
     clearCryptoChannelArtefacts
     clearCAArtefacts
+    clearCAClientImage
 }
 
 case $COMMAND in
