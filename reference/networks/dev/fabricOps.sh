@@ -1,13 +1,12 @@
 #!/bin/bash
 
-usage_message="Useage: $0 network <subcommand> | ca-client <subcommand> | status | clean"
-
 ARGS_NUMBER="$#"
 COMMAND="$1"
 SUBCOMMAND="$2"
 
 # Network
 network_subcommand_message="Useage: $0 network artefacts | start"
+network_name="dev_fabric-network"
 
 function createCryptoChannelArtefacts(){
     docker run --rm -e "GOPATH=/opt/gopath" -e "FABRIC_CFG_PATH=/opt/gopath/src/github.com/hyperledger/fabric" -w="/opt/gopath/src/github.com/hyperledger/fabric" --volume=${PWD}:/opt/gopath/src/github.com/hyperledger/fabric hyperledger/fabric-tools /bin/bash -c '${PWD}/generate-artefacts.sh'
@@ -25,7 +24,7 @@ function createCryptoChannelArtefacts(){
 }
 
 function clearContainers(){
-    docker rm -f $(docker ps --filter "network=dev_fabric-network" -aq)
+    docker rm -f $(docker ps --filter network=$network_name -aq)
 }
 
 function clearChaincodeImages(){
@@ -131,7 +130,12 @@ function caClient(){
             if [ "$?" != 0 ]; then
                 buildCAClientImage
             fi
-            caCAClientStart
+            caStatus
+            if [ "$?" != 0 ]; then
+                echo "ca.org1.dev is not running please re-start the network"
+            else
+                caCAClientStart
+            fi
             ;;
         "cli")
             caCAClientCLI
@@ -143,11 +147,12 @@ function caClient(){
 }
 
 # Fabric Ops
+fabric_usage_message="Useage: $0 network <subcommand> | ca-client <subcommand> | status | clean"
+
 function fabricStatus(){
-    docker ps -a
+    docker ps -a --filter network=$network_name
 }
 
-# Fabric Clean
 function fabricClean(){
     clearContainers
     clearChaincodeImages
@@ -170,6 +175,6 @@ case $COMMAND in
         fabricClean
         ;;
     *)
-        echo $usage_message
+        echo $fabric_usage_message
         ;;
 esac
