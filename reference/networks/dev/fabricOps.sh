@@ -130,12 +130,7 @@ function caClient(){
             if [ "$?" != 0 ]; then
                 buildCAClientImage
             fi
-            caStatus
-            if [ "$?" != 0 ]; then
-                echo "ca.org1.dev is not running please re-start the network"
-            else
-                caCAClientStart
-            fi
+            caCAClientStart
             ;;
         "cli")
             caCAClientCLI
