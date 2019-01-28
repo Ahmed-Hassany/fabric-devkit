@@ -91,7 +91,7 @@ function buildCAClientImage(){
 }
 
 function caStatus(){
-    result=$(docker ps -a --format "{{.ID}}" --filter name=$ca_client_container --filter status=running)
+    local result=$(docker ps -a --format "{{.ID}}" --filter name=$ca_client_container --filter status=running)
     if [ -z $result ]; then
         return 1
     else
@@ -111,6 +111,15 @@ function clearCAClientImage(){
     docker rmi -f $ca_client_image
 }
 
+function caImageExists(){
+    local result=$(docker images --format "{{.ID}}" $ca_client_image)
+    if [ -z "$result" ]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
 function caClient(){
     subcommand="$1"
     case $subcommand in
@@ -118,7 +127,10 @@ function caClient(){
             buildCAClientImage
             ;;
         "start")
-            buildCAClientImage
+            caImageExists
+            if [ "$?" != 0 ]; then
+                buildCAClientImage
+            fi
             caCAClientStart
             ;;
         "cli")
