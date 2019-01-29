@@ -63,7 +63,7 @@ function startNetwork(){
 }
 
 function network(){
-    subcommand="$1"
+    local subcommand="$1"
     case $subcommand in
         "artefacts")
             clearCryptoChannelArtefacts
@@ -81,16 +81,24 @@ function network(){
 # CA Client
 ca_client_image="workingwithblockchain/ca-client-toolkit"
 ca_client_container="ca.client.org1.dev"
-ca_client_subcommand_message="Useage: $0 ca-client image | cli | start"
+ca_client_subcommand_message="Useage: $0 ca-client image | cli | start | clean"
 
-function buildCAClientImage(){
+function buildImageCAClient(){
     pushd ../../fabric-ca-client
         docker build -t $ca_client_image .
     popd
 }
 
-function caStatus(){
-    local result=$(docker ps -a --format "{{.ID}}" --filter name=$ca_client_container --filter status=running)
+function startCAClient(){
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.ca-client.yaml up -d $ca_client_container
+}
+
+function cliCAClient(){
+    docker exec -it $ca_client_container /bin/bash
+}
+
+function existsCAClientImage(){
+    result=$(docker images $ca_client_image --format "{{.ID}}")
     if [ -z $result ]; then
         return 1
     else
@@ -98,62 +106,139 @@ function caStatus(){
     fi
 }
 
-function caCAClientCLI(){
-    docker exec -it $ca_client_container /bin/bash
-}
-
-function caCAClientStart(){
-    docker-compose -f ./docker-compose.ca-client.yaml up -d $ca_client_container
+function clearCAClientContainer(){
+    docker rm -f $ca_client_container
 }
 
 function clearCAClientImage(){
     docker rmi -f $ca_client_image
 }
 
-function caImageExists(){
-    local result=$(docker images --format "{{.ID}}" $ca_client_image)
-    if [ -z "$result" ]; then
+function caClient(){
+    local subcommand="$1"
+    case $subcommand in
+        "image")
+            clearCAClientContainer
+            clearCAClientImage
+            buildImageCAClient
+            ;;
+        "start")
+            clearCAClientContainer
+            existsCAClientImage
+            if [ "$?" -ne 0 ]; then
+                buildImageCAClient
+            fi
+            startCAClient
+            ;;
+        "cli")
+            cliCAClient
+            ;;
+        "clean")
+            clearCAClientContainer
+            clearCAClientImage
+            ;;
+        *)
+            echo $ca_client_subcommand_message
+            ;;
+    esac
+} 
+
+# Fabric Client
+fabric_client_message="Useage: $0 fabric-client image | start | clean"
+fabric_client_image="workingwithblockchain/fabric-client"
+fabric_client_container="fabric-client-node.org1.dev"
+
+function buildFabricClientImage(){
+    pushd ../../node-sdk/fabric-client
+        docker build -t $fabric_client_image .  
+    popd
+}
+
+function unitTestFabricClient(){
+    echo "Fabric client unit testing"
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.node-sdk.yaml run --rm $fabric_client_container /bin/bash -c 'npm run unit:test'
+    return $?
+}
+
+function smokeTestFabricClient(){
+    echo "Fabric client smoke testing"
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.node-sdk.yaml run --rm $fabric_client_container /bin/bash -c 'npm run smoke:test'
+    return $?
+}
+
+function startFabricClient(){
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.node-sdk.yaml up -d $fabric_client_container
+}
+
+function existsFabricClientImage(){
+    local result=$(docker images $fabric_client_image --format "{{.ID}}")
+    if [ -z $result ]; then
         return 1
     else
         return 0
     fi
 }
 
-function caClient(){
-    subcommand="$1"
+function cleanFabricClientContainer(){
+    docker rm -f $fabric_client_container
+    rm -rf ../../node-sdk/fabric-client/wallet
+}
+
+function cleanFabricClientImage(){
+    docker rmi -f $fabric_client_image
+}
+
+function fabricClient(){
+    local subcommand="$1"
     case $subcommand in
         "image")
-            buildCAClientImage
+            cleanFabricClientContainer
+            cleanFabricClientImage
+            buildFabricClientImage
             ;;
         "start")
-            caImageExists
-            if [ "$?" != 0 ]; then
-                buildCAClientImage
+            cleanFabricClientContainer
+            existsFabricClientImage
+            if [ "$?" -ne 0 ]; then
+                buildFabricClientImage
             fi
-            caCAClientStart
+            unitTestFabricClient
+            if [ "$?" -ne 0 ]; then
+                echo "Unit test failed - unable to start Fabric Client"
+                exit 1
+            fi
+            smokeTestFabricClient
+            if [ "$?" -ne 0 ]; then
+                echo "Smoke failed - unable to start Fabric Client"
+                exit 1
+            fi
+            startFabricClient
             ;;
-        "cli")
-            caCAClientCLI
+        "clean")
+            cleanFabricClientContainer
+            cleanFabricClientImage
             ;;
         *)
-            echo $ca_client_subcommand_message
+            echo $fabric_client_message
             ;;
     esac
 }
 
 # Fabric Ops
-fabric_usage_message="Useage: $0 network <subcommand> | ca-client <subcommand> | status | clean"
+fabric_usage_message="Useage: $0 network <subcommand> | ca-client <subcommand> | fabric-client <subcommand> | status | clean"
 
-function fabricStatus(){
+function fabricOpsStatus(){
     docker ps -a --filter network=$network_name
 }
 
-function fabricClean(){
+function fabricOpsClean(){
     clearContainers
     clearChaincodeImages
     clearCryptoChannelArtefacts
     clearCAArtefacts
-    clearCAClientImage
+    caClient clean
+    fabricClient clean
+    docker rmi -f $(docker images -f "dangling=true" -q)
 }
 
 case $COMMAND in
@@ -163,11 +248,14 @@ case $COMMAND in
     "ca-client")
         caClient $SUBCOMMAND
         ;;
+    "fabric-client")
+        fabricClient $SUBCOMMAND
+        ;;
     "status")
-        fabricStatus
+        fabricOpsStatus
         ;;
     "clean")
-        fabricClean
+        fabricOpsClean
         ;;
     *)
         echo $fabric_usage_message

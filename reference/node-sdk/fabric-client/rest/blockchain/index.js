@@ -36,8 +36,6 @@ module.exports.invokeTransaction = async (fcn, args) =>	{
         chainId: serviceConfig.blockchain.channelName
     }
 
-	logger.debug('request --->: ' + request);
-
 	let errorMessage = null
     let txIDString = null;
     try{
@@ -48,6 +46,13 @@ module.exports.invokeTransaction = async (fcn, args) =>	{
         const channel = client.getChannel(serviceConfig.blockchain.channelName);
 
         let results = await channel.sendTransactionProposal(request);
+
+		logger.debug('request.targets --->: ' + request.targets);
+		logger.debug('request.chaincodeId --->: ' + request.chaincodeId);
+		logger.debug('request.chainId --->: ' + request.chainId);
+		logger.debug('request.txId --->: ' + request.txId);
+
+		logger.debug('result of proposal --->: ' + results);
 
         var proposalResponses = results[0];
 		var proposal = results[1];

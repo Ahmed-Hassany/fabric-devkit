@@ -29,18 +29,6 @@ describe('register-user', ()=>{
         });
     });
 
-/*
-            it(`expects to create an empty key value store in ${kvsPath}`, async ()=>{
-                await client.initCredentialStores();
-                const result = fs.existsSync(kvsPath);
-                expect(result).to.be.true;
-            });
-            it(`expects not to have created a crypto-store in ${cryptoPath}`, ()=>{
-                const result = fs.existsSync(cryptoPath);
-                expect(result).to.be.false;
-            });
-*/
-
     before(()=>{
         if (fs.existsSync(kvsPath)){
             const files = fs.readdirSync(kvsPath);
