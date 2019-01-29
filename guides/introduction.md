@@ -60,10 +60,10 @@ To use this DevKit please follow these steps:
 ## Content
 
 1. [Minimal Go chaincodes](./chaincodes.md) - Describe the purpose and Go chaincode programming.
-2. [cryptogen and configtxgen](./crypto-configtx.md) - 'How-to' use the lab to help you experiment cryptogen and configtxgen tools to create crypto and channel artefacts. 
-3. [fabric-ca](./fabric-ca.md) - 'How-to' use the lab to help you experiment with the inner workings of Fabric CA 
-4. [networks](./networks.md) - Description of reference Fabric networks and how to use it to support your application creation effort.
-5. [node-sdk](./node-sdk.md) - Description of lab to help you experiment with Fabric node SDKs 
+2. [Cryptogen and configtxgen lab](./crypto-configtx.md) - A lab to help you experiment with cryptogen and configtxgen tools to create cryptographic and channel artefacts. 
+3. [fabric-ca](./fabric-ca.md) - A lab to help you experiment with the inner workings of Fabric CA. 
+4. [networks](./networks.md) - Reference Fabric networks to support your application creation effort.
+5. [node-sdk](./node-sdk.md) - A lab to help you experiment with Fabric node SDKs. 
 
 > Note:
 > 1. The toolkit uses out-of-the-box open source Fabric components to help developers spin-up a working Fabric networks and create apps. It does not imply that the examples presented in this kit necessarily represents production ready use cases. These are intended only to present concepts.
