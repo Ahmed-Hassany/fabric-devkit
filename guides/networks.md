@@ -22,7 +22,7 @@ The `dev` network orchestrator is located [here](../reference/networks/dev)
 | Item | Description |
 | --- | --- |
 | `cli-scripts` | This folder contains scripts to configure the Fabric network by creating channels, installing and instantiating chaincodes. |
-| `fabricOps.sh` | The principal network orchestration script to help you spin-up, tear down and add supporting components to the network. |
+| `fabricOps.sh` | Please refer to details [here](#fabricOps) |
 | `configtx.yaml` | Channel specification |
 | `crypto-config.yaml` | Crytographic artefact specification |
 | `docker-compose.ca-client.yaml` | A docker orchestration specification for ca-client container |
@@ -33,19 +33,57 @@ The `dev` network orchestrator is located [here](../reference/networks/dev)
 | `org1.yaml` | Client configuration specification |
 | `services.json` | Client support configuration specification |
 
-### fabricOps.sh
+### <a name="fabricOps">fabricOps.sh</a>
 
-As a developer you need to concern yourself with this particular script.
+The principal network orchestration script to help you spin-up, tear down and add supporting components to the network. It is a Bash script based command line application.
 
-Commands
+__Commands__
+
+This is the top level command
 
 `./fabricOps.sh network <subcommand> | ca-client <subcommand> | fabric-client <subcommand> | status | clean`
-`./fabricOps.sh network artefacts | start`
-`./fabricOps.sh ca-client image | cli | start | clean`
-`./fabricOps.sh fabric-client image | start | clean`
-`./fabricOps.sh status`
-`./fabricOps.sh clean`
+ 
+*network*
 
+Use this command to create Fabric network related crytographic and channel arefects, and to spin-up a working dev Fabric network.
+`./fabricOps.sh network artefacts | start`
+
+*ca-client*
+
+Use this command to add a CA Client instance to a running Fabric network. 
+
+`./fabricOps.sh ca-client image | cli | start | clean`
+
+Subcommands
+
+* `image` - builds a new Docker image of Fabric CA Client tool
+* `cli`- spin up a bash shell
+* `start` - start an instance of Fabric CA Client instance
+* `clean` - remove instances of Fabric CA Client
+
+*fabric-client*
+
+Use this command to add a fabric-client instance to a running Fabric network.
+
+`./fabricOps.sh fabric-client image | start | clean`
+
+Subcommands
+
+* `image` - builds a new Docker image of Fabric client tool
+* `start` - start an instance of the Fabric client tool
+* `clean` - remove instance of the Fabric client tool
+
+*status*
+
+Use this command to get a list of the status instances running in the network.
+
+`./fabricOps.sh status`
+
+*clean*
+
+Use this command to tear down *all* containers in the Fabric network
+
+`./fabricOps.sh clean`
 
 ## Kafka
 
