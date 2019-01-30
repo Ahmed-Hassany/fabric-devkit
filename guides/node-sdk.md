@@ -19,8 +19,8 @@ The lab is located [here](../reference/node-sdk).
 | Item | Description |
 | --- | --- |
 | `fabric-client` | This folder contains an example of a RESTFul app written using node `fabric-client` and a series of smoke test to verify the functionality of `fabric-client`. |
-| fabric-network | Under development |
+| `fabric-network` | Under development |
 
 ## Important note
 
-This space is not intended for application development. The artefacts here are intended for illustration only.
+This space is not intended for application development. Please create a separate code repository to host your project.
