@@ -14,11 +14,10 @@ The design goals of the kit are to help developers:
 * define, instantiate and configure a Fabric network to support development effort;
 * verify that apps developed to interact with the Fabric network meets expectation.
 
-The development kit has three components:
+The development kit has two components:
 
 * Example Go chaincodes;
 * Reference networks and laboratories for experimentation;
-* Command line interface (CLI) known as `maejor`.
 
 ## Release notes
 
@@ -58,7 +57,6 @@ Status:
 | --- | --- |
 | [`chaincodes`](./chaincodes) | Example Go chaincodes |
 | [`guides`](./guides/introduction.md) | How-to documentation |
-| [`maejor`](./maejor) | Source codes for `maejor` application |
 | [`reference`](./reference) | A collection of smoke testing implementation of a fabric network setup |
 
 ## Contributions and feedback
