@@ -1,12 +1,58 @@
 #!/bin/bash
 
-usage_message="Useage: $0 init | status | re-start | clean "
-
 ARGS_NUMBER="$#"
 COMMAND="$1"
+SUBCOMMAND="$2"
 
+network_name="kafka_fabric-network"
 
+# Kafka
+kafka_subcommand_message="Useage: $0 kafka start | clean"
 
+function smokeKafka(){
+    docker-compose -f ./docker-compose.kafka.yaml exec kafka1.network /bin/bash -c '${PWD}/bin/kafka-topics.sh --create --zookeeper zookeeper1.network:2181 --replication-factor 1 --partitions 1 --topic test'
+    docker-compose -f ./docker-compose.kafka.yaml exec kafka1.network /bin/bash -c '${PWD}/bin/kafka-topics.sh --zookeeper zookeeper1.network:2181 --describe --topic test'
+    docker-compose -f ./docker-compose.kafka.yaml exec kafka1.network /bin/bash -c '${PWD}/bin/kafka-console-producer.sh --broker-list localhost:9021 --topic test'
+}
+
+function startKafka(){
+    docker-compose -f ./docker-compose.kafka.yaml up -d zookeeper1.network
+    docker-compose -f ./docker-compose.kafka.yaml up -d zookeeper2.network 
+    docker-compose -f ./docker-compose.kafka.yaml up -d zookeeper3.network 
+    docker-compose -f ./docker-compose.kafka.yaml up -d kafka1.network
+    docker-compose -f ./docker-compose.kafka.yaml up -d kafka2.network 
+    docker-compose -f ./docker-compose.kafka.yaml up -d kafka3.network 
+    docker-compose -f ./docker-compose.kafka.yaml up -d kafka4.network
+}
+
+function cleanKafka(){
+
+    docker rm -f zookeeper1.network
+    docker rm -f zookeeper2.network 
+    docker rm -f zookeeper3.network 
+    docker rm -f kafka1.network
+    docker rm -f kafka2.network 
+    docker rm -f kafka3.network 
+    docker rm -f kafka4.network
+}
+
+function kafka(){
+    local subcommand="$1"
+    case $subcommand in
+        "start")
+            startKafka
+            #smokeKafka
+            ;;
+        "clean")
+            cleanKafka
+            ;;
+        *)
+            echo $kafka_subcommand_message
+            ;;
+    esac
+}
+
+# Fabric
 function createCryptoChannelArtefacts(){
     rm -rf ./channel-artefacts
     rm -rf ./crypto-config
@@ -14,60 +60,82 @@ function createCryptoChannelArtefacts(){
 }
 
 function renameSecretPrivKeys(){
-    pushd ./crypto-config/peerOrganizations/org1.solo.network/ca
+    pushd ./crypto-config/peerOrganizations/org1.kafka.network/ca
         PK=$(ls *_sk)
         mv $PK secret.key
     popd
 
-    pushd ./crypto-config/peerOrganizations/org2.solo.network/ca
+    pushd ./crypto-config/peerOrganizations/org2.kafka.network/ca
         PK=$(ls *_sk)
         mv $PK secret.key
     popd
 
-    pushd ./crypto-config/peerOrganizations/org1.solo.network/users/Admin@org1.solo.network/msp/keystore
+    pushd ./crypto-config/peerOrganizations/org1.kafka.network/users/Admin@org1.kafka.network/msp/keystore
         PK=$(ls *_sk)
         mv $PK secret.key
     popd
 
-    pushd ./crypto-config/peerOrganizations/org2.solo.network/users/Admin@org2.solo.network/msp/keystore
+    pushd ./crypto-config/peerOrganizations/org2.kafka.network/users/Admin@org2.kafka.network/msp/keystore
         PK=$(ls *_sk)
         mv $PK secret.key
     popd
 }
 
-function startNetwork(){
-    docker-compose -f ./docker-compose.yaml up -d orderer.solo.network
-    
-    docker-compose -f ./docker-compose.yaml up -d ca.org1.solo.network
-    docker-compose -f ./docker-compose.yaml up -d peer0.db.org1.solo.network
-    docker-compose -f ./docker-compose.yaml up -d peer0.org1.solo.network
-    docker-compose -f ./docker-compose.yaml up -d cli.org1.solo.network
-
-    docker-compose -f ./docker-compose.yaml up -d ca.org2.solo.network
-    docker-compose -f ./docker-compose.yaml up -d peer0.db.org2.solo.network
-    docker-compose -f ./docker-compose.yaml up -d peer0.org2.solo.network
-    docker-compose -f ./docker-compose.yaml up -d cli.org2.solo.network
+function startFabric(){
+    docker-compose -f ./docker-compose.kafka.yaml -f ./docker-compose.fabric.yaml up -d
 }
 
 function createChannel(){
-    docker exec cli.org1.solo.network /bin/bash -c '${PWD}/scripts/channelOps.sh'
-    docker exec cli.org2.solo.network /bin/bash -c '${PWD}/scripts/channelOps.sh'
+    docker exec cli.org1.kafka.network /bin/bash -c '${PWD}/scripts/channelOps.sh'
+    docker exec cli.org2.kafka.network /bin/bash -c '${PWD}/scripts/channelOps.sh'
 }
 
 function installChaincode(){
-    docker exec cli.org1.solo.network /bin/bash -c '${PWD}/scripts/installCC.sh'
-    docker exec cli.org2.solo.network /bin/bash -c '${PWD}/scripts/installCC.sh'
+    docker exec cli.org1.kafka.network /bin/bash -c '${PWD}/scripts/installCC.sh'
+    docker exec cli.org2.kafka.network /bin/bash -c '${PWD}/scripts/installCC.sh'
 }
 
 function instantiateChaincode(){
-    docker exec cli.org1.solo.network /bin/bash -c '${PWD}/scripts/instantiateCC.sh'
+    docker exec cli.org1.kafka.network /bin/bash -c '${PWD}/scripts/instantiateCC.sh'
 }
 
-function clearFabricAssets(){
+function clearCryptoChannelArtefacts(){
     rm -rf ./channel-artefacts
     rm -rf ./crypto-config
 }
 
+function clearContainers(){
+    containers=$( docker ps -aq --filter network=$network_name)
+    docker rm -f $containers
+}
+
+network_subcommand_message="Useage: $0 network start | configure | clean"
+function network(){
+    local subcommand="$1"
+    case $subcommand in
+        "start")
+            clearCryptoChannelArtefacts
+            clearContainers
+            createCryptoChannelArtefacts
+            renameSecretPrivKeys
+            startFabric
+            ;;
+        "configure")
+            createChannel
+            installChaincode
+            instantiateChaincode
+            ;;
+        "clean")
+            clearCryptoChannelArtefacts
+            clearContainers
+            ;;
+        *)
+            echo $network_subcommand_message
+            ;;
+    esac 
+}
+
+# Status
 function status(){
 
     echo "------------------------------------"
@@ -82,34 +150,21 @@ function status(){
     docker ps --filter status=exited
 }
 
-function clearContainers(){
-    containers=$( docker ps -aq --filter "network=solo_fabric-network")
-    docker rm -f $containers
-}
+usage_message="Useage: $0 kafka <subcommand> | fabric <subcommand> | status | clean "
 
 case $COMMAND in
-    "init")
-        clearContainers
-        createCryptoChannelArtefacts
-        renameSecretPrivKeys
-        startNetwork
-        createChannel
-        installChaincode
-        instantiateChaincode
+    "kafka")
+        kafka $SUBCOMMAND 
         ;;
-    "re-start")
-        clearContainers
-        startNetwork
-        createChannel
-        installChaincode
-        instantiateChaincode
+    "network")
+        network $SUBCOMMAND
         ;;
     "status")
         status
         ;;
     "clean")
-        clearContainers
-        clearFabricAssets
+        kafka clean
+        network clean
         ;;				
     *)
         echo $usage_message

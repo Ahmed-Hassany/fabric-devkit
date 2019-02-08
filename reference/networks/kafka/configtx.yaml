@@ -12,7 +12,7 @@ Organizations:
   - &OrdererOrg
     Name: OrdererOrg
     ID: OrdererMSP
-    MSPDir: crypto-config/ordererOrganizations/solo.network/msp
+    MSPDir: crypto-config/ordererOrganizations/kafka.network/msp
     Policies:
       Readers:
           Type: Signature
@@ -27,7 +27,7 @@ Organizations:
   - &Org1
     Name: Org1MSP
     ID: Org1MSP
-    MSPDir: crypto-config/peerOrganizations/org1.solo.network/msp
+    MSPDir: crypto-config/peerOrganizations/org1.kafka.network/msp
     Policies:
       Readers:
           Type: Signature
@@ -39,13 +39,13 @@ Organizations:
           Type: Signature
           Rule: "OR('Org1MSP.admin')"
     AnchorPeers:
-      - Host: peer0.org1.solo.network
+      - Host: peer0.org1.kafka.network
         Port: 7051
 
   - &Org2
     Name: Org2MSP
     ID: Org2MSP
-    MSPDir: crypto-config/peerOrganizations/org2.solo.network/msp
+    MSPDir: crypto-config/peerOrganizations/org2.kafka.network/msp
     Policies:
       Readers:
           Type: Signature
@@ -122,10 +122,11 @@ Application: &ApplicationDefaults
 #
 ################################################################################
 Orderer: &OrdererDefaults
-  OrdererType: solo
+  OrdererType: kafka
 
   Addresses:
-    - orderer.solo.network:7050
+    - orderer1.kafka.network:7050
+    - orderer2.kafka.network:7050
 
   BatchTimeout: 2s
 
@@ -136,9 +137,13 @@ Orderer: &OrdererDefaults
 
   Kafka:
     Brokers:
-      - 127.0.0.1:9092
+      - kafka1.network:9092
+      - kafka2.network:9092
+      - kafka3.network:9092
+      - kafka4.network:9092
   
   Organizations:
+    - *OrdererOrg
 
   Policies:
     Readers:
