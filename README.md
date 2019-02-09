@@ -1,8 +1,8 @@
 # Aladdin Fabric Developers' Kit
 
-[Aladdin Healthcare Technologies Ltd](https://aladdinid.com/) sponsored the creation of the developers' kit, which was codename `Maejor`. The kit was developed by [Elemental Concept](http://elementalconcept.com/) who then use it to build a Fabric based [Proof-of-Concept (PoC) medical audit trail](https://www.youtube.com/watch?v=vJmhwymh-eU). 
+[Aladdin Healthcare Technologies Ltd](https://aladdinid.com/) sponsored the creation of the developers' kit, which was codename `Maejor`. The kit was developed by [Elemental Concept](http://elementalconcept.com/) which was used to build a Hyperledger Fabric (Fabric) based [Proof-of-Concept (PoC) medical audit application](https://www.youtube.com/watch?v=vJmhwymh-eU).
 
-Following from the PoC, Aladdin has kindly open source the developer kit and make it available to the wider blockchain developers' community to add more features.
+Following from the PoC, Aladdin has kindly open sourced and donated the developers' kit and make it available to the wider blockchain developers' community to support application development effort and add more features.
 
 The maintainer(s) of this project is grateful to Aladdin for sponsoring the effort to create the kit and donating the code to this community.
 
@@ -10,14 +10,20 @@ The maintainer(s) of this project is grateful to Aladdin for sponsoring the effo
 
 The design goals of the kit are to help developers:
 
-* learn, through a series of smoke tests, the system architecture of Hyperledger Fabric (Fabric);
+* learn through a series of smoke tests and reference networks, the system architecture of Hyperledger Fabric;
 * define, instantiate and configure a Fabric network to support development effort;
-* verify that apps developed to interact with the Fabric network meets expectation.
+* verify that apps interacting with the Fabric network meets expectations.
 
-The development kit has two components:
+## Content
 
-* Example Go chaincodes;
-* Reference networks and laboratories for experimentation;
+The Fabric developers' kit compromise of the following items:
+
+| Item | Description |
+| --- | --- |
+| [`chaincodes`](./chaincodes) | Example Go chaincodes |
+| [`networks`](./networks) | Preconfigured core networks intended to support application development and help platform engineers appreciate the system architecture of a operational Fabric network |
+| [`extensions`](./extensions) | Addition to core elements of the core Fabric networks |
+| [`guides`](./guides/introduction.md) | How to use the developers' kit |
 
 ## Release notes
 
@@ -38,26 +44,17 @@ Status:
 
 Features:
 
-* Laboratory for cryptogen and configtxgen experimentation.
-* Laboratory for fabric-ca experimentation.
+* A laboratory for platform engineers to learn to create cryptographic materials using cryptogen and configtxgen.
+* A fabric-ca-client cli extension to enable developer smoke test a running fabric-ca-server.
 * A Fabric network configured to support development work and laboratory exercises.
-* Two reference networks:
-  * A one-org network configured with deep instrumentation to support development;
-  * A two-organisations network with multi-channel configuration and currently configured for solo ordering.
-* A `fabric-node-sdk` laboratory comprising of:
-  * A section for developing using the `fabric-client` SDK.
+* Two pre-configured networks:
+  * A one-org network to provide developer with quick development feedback without the need for a fully configure network;
+  * A two-organisations multi-channel network configured to help application developers verify apps deployed in a fairly realistic network and to a working reference for platform engineers to gain inspiration to scale up to a production network.
+* A simple `fabric-node-sdk` based RESTful container intended to enable interactions with the pre-configured networks 
 
 Status:
 
 * Under development
-
-## Content
-
-| Item | Description |
-| --- | --- |
-| [`chaincodes`](./chaincodes) | Example Go chaincodes |
-| [`guides`](./guides/introduction.md) | How-to documentation |
-| [`reference`](./reference) | A collection of smoke testing implementation of a fabric network setup |
 
 ## Contributions and feedback
 
@@ -69,7 +66,9 @@ It is worth emphasising that the long term goal is to have this project supporte
 
 ## Maintainers
 
-Principal maintainer: Paul Sitoh (Elemental Concept).
+| Role | Name |
+| --- | --- |
+| Principal maintainer | Paul Sitoh (Elemental Concept) |
 
 ## Disclaimer
 
