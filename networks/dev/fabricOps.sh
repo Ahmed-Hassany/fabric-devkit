@@ -156,18 +156,18 @@ function buildFabricClientImage(){
 
 function unitTestFabricClient(){
     echo "Fabric client unit testing"
-    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.node-sdk.yaml run --rm $fabric_client_container /bin/bash -c 'npm run unit:test'
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.fabric-node-client.yaml run --rm $fabric_client_container /bin/bash -c 'npm run unit:test'
     return $?
 }
 
 function smokeTestFabricClient(){
     echo "Fabric client smoke testing"
-    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.node-sdk.yaml run --rm $fabric_client_container /bin/bash -c 'npm run smoke:test'
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.fabric-node-client.yaml run --rm $fabric_client_container /bin/bash -c 'npm run smoke:test'
     return $?
 }
 
 function startFabricClient(){
-    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.node-sdk.yaml up -d $fabric_client_container
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.fabric-node-client.yaml up -d $fabric_client_container
 }
 
 function existsFabricClientImage(){
