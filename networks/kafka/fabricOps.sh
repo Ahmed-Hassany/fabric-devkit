@@ -52,7 +52,7 @@ function kafka(){
     esac
 }
 
-# Fabric
+# network
 function createCryptoChannelArtefacts(){
     rm -rf ./channel-artefacts
     rm -rf ./crypto-config
@@ -150,7 +150,8 @@ function status(){
     docker ps --filter status=exited
 }
 
-usage_message="Useage: $0 kafka <subcommand> | fabric <subcommand> | status | clean "
+# FabricOps.sh
+usage_message="Useage: $0 kafka <subcommand> | network <subcommand> | status | clean "
 
 case $COMMAND in
     "kafka")

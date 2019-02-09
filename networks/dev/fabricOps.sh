@@ -84,7 +84,7 @@ ca_client_container="ca.client.org1.dev"
 ca_client_subcommand_message="Useage: $0 ca-client image | cli | start | clean"
 
 function buildImageCAClient(){
-    pushd ../../fabric-ca-client
+    pushd ../../extensions/fabric-ca-client
         docker build -t $ca_client_image .
     popd
 }
@@ -149,7 +149,7 @@ fabric_client_image="workingwithblockchain/fabric-client"
 fabric_client_container="fabric-client-node.org1.dev"
 
 function buildFabricClientImage(){
-    pushd ../../node-sdk/fabric-client
+    pushd ../../extensions/node-sdk/fabric-client
         docker build -t $fabric_client_image .  
     popd
 }
@@ -181,7 +181,7 @@ function existsFabricClientImage(){
 
 function cleanFabricClientContainer(){
     docker rm -f $fabric_client_container
-    rm -rf ../../node-sdk/fabric-client/wallet
+    rm -rf ../../extensions/node-sdk/fabric-client/wallet
 }
 
 function cleanFabricClientImage(){
