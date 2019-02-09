@@ -1,4 +1,4 @@
-# Reference networks
+# Reference Networks
 
 You will find two predefined Fabric networks intended to help you:
 
@@ -11,11 +11,11 @@ Please also refer to Fabric's [official documentation](https://hyperledger-fabri
 
 Please also ensure you have the [prequisite](./introduction.md#prequisite).
 
-## Dev network
+# <a name="dev-network">Dev network</a>
 
 This network has is configured with one orderer, one certificate authority (ca) and one cli operating in solo mode. It is intended to support application development (chaincode and node client) and support experimentation with ca.
 
-### Content
+## Content
 
 The `dev` network orchestrator is located [here](../reference/networks/dev)
 
@@ -33,7 +33,7 @@ The `dev` network orchestrator is located [here](../reference/networks/dev)
 | `org1.yaml` | Client configuration specification |
 | `services.json` | Client support configuration specification |
 
-### <a name="fabricOps">fabricOps.sh</a>
+## <a name="fabricOps">fabricOps.sh</a>
 
 The principal network orchestration script to help you spin-up, tear down and add supporting components to the network. It is a Bash script based command line application.
 
