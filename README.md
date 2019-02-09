@@ -39,7 +39,7 @@ go get github.com/workingwithblockchain/fabric-devkit
 | As a platform engineer, I would like to be able to conduct experiment with Fabric's cryptogen and configtxgen toolkit and associated configuration files without the need for complex set-up | [crypto-configtx](./guides/crypto-configtx.md) |
 | As a platform engineer, I would like to be able to inspect the internals of an operational Fabric Certificate Authority (CA) whilst performing enrollment and registration, so I know how to debug the CA. | [Fabric CA guides](./guides/fabric-ca.md) |
 | As a developer, I would like to be able to inspect the internals of an operational Fabric Certificate Authority (CA) whilst performing enrollment and registration, so I can diagnose problems caused by my application whilst interacting with the CA | [Fabric CA guides](./guides/fabric-ca.md) |
-| As a developer, I would like to have a pre-built simple RESTful nodeJS based component that is able to interact with the reference networks, so I learn to create apps using `fabric-node-client` sdk | [fabric-node-client](./guides/node-sdk.md)|
+| As a developer, I would like to have a pre-built simple RESTful nodeJS based component that is able to interact with the reference networks, so I learn to create apps using `fabric-node-client` sdk | [fabric-node-client](./guides/fabric-node-client.md)|
 
 # Release Notes
 
