@@ -143,13 +143,13 @@ function caClient(){
     esac
 } 
 
-# Fabric Client
-fabric_client_message="Useage: $0 fabric-client image | start | clean"
+# Fabric Node Client
+fabric_client_message="Useage: $0 fabric-node-client image | start | clean"
 fabric_client_image="workingwithblockchain/fabric-client"
 fabric_client_container="fabric-client-node.org1.dev"
 
 function buildFabricClientImage(){
-    pushd ../../extensions/node-sdk/fabric-client
+    pushd ../../extensions/fabric-node-client
         docker build -t $fabric_client_image .  
     popd
 }
@@ -181,7 +181,7 @@ function existsFabricClientImage(){
 
 function cleanFabricClientContainer(){
     docker rm -f $fabric_client_container
-    rm -rf ../../extensions/node-sdk/fabric-client/wallet
+    rm -rf ../../extensions/fabric-node-client/wallet
 }
 
 function cleanFabricClientImage(){
@@ -225,7 +225,7 @@ function fabricClient(){
 }
 
 # Fabric Ops
-fabric_usage_message="Useage: $0 network <subcommand> | ca-client <subcommand> | fabric-client <subcommand> | status | clean"
+fabric_usage_message="Useage: $0 network <subcommand> | ca-client <subcommand> | fabric-node-client <subcommand> | status | clean"
 
 function fabricOpsStatus(){
     docker ps -a --filter network=$network_name
@@ -248,7 +248,7 @@ case $COMMAND in
     "ca-client")
         caClient $SUBCOMMAND
         ;;
-    "fabric-client")
+    "fabric-node-client")
         fabricClient $SUBCOMMAND
         ;;
     "status")
