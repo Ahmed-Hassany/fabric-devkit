@@ -46,7 +46,7 @@ go get github.com/workingwithblockchain/fabric-devkit
 | Version | Features | Status |
 | --- | --- | --- |
 | 0.1 | + Implementation named twoorgs.<br> + Network components based on Fabric 1.1.0 containers and docker compose.<br> + Bash based scripts to support kit orchestration - i.e. macOS and Ubuntu based | + Released.<br> + No further update. |
-| 0.2 | + Support for Fabric 1.4 + A laboratory for platform engineers to learn to create cryptographic materials using cryptogen and configtxgen.<br> + A fabric-ca-client cli extension to enable developer smoke test a running fabric-ca-server.<br> + A Fabric network configured to support development work and laboratory exercises.<br> + Two pre-configured networks: a one-org network, and a two-organisations multi-channel network.<br> + A simple `fabric-node-sdk` based RESTful container intended to enable interactions with the pre-configured networks. | + Under development |
+| 0.2 | + Support for Fabric 1.4.<br> + A laboratory for platform engineers to learn to create cryptographic materials using cryptogen and configtxgen.<br> + A fabric-ca-client cli extension to enable developer smoke test a running fabric-ca-server.<br> + A Fabric network configured to support development work and laboratory exercises.<br> + Two pre-configured networks: a one-org network, and a two-organisations multi-channel network.<br> + A simple `fabric-node-sdk` based RESTful container intended to enable interactions with the pre-configured networks. | + Under development |
 
 Please also refer to this [user journey](https://www.pivotaltracker.com/n/projects/2181160) to follow the DevKit's development lifecycle.
 
