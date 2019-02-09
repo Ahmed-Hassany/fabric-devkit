@@ -60,7 +60,7 @@ Use this command to add a CA client instance to a running Fabric network.
 | `start` | start an instance of Fabric CA Client container |
 | `clean` | remove instances of Fabric CA Client container |
 
-## fabric-node-client
+## `fabric-node-client`
 
 Use this command to add a fabric-client instance to a running Fabric network.
 
@@ -74,7 +74,7 @@ Use this command to add a fabric-client instance to a running Fabric network.
 | `start` | start an instance of the Fabric client tool |
 | `clean` | remove instance of the Fabric client tool |
 
-## status
+## `status`
 
 Use this command to get a list of the status instances running in the network.
 
@@ -82,7 +82,7 @@ Use this command to get a list of the status instances running in the network.
 ./fabricOps.sh status
 ```
 
-## clean
+## `clean`
 
 Use this command to tear down *all* containers in the Fabric network
 
