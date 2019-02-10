@@ -16,21 +16,23 @@ The design goals of kit are to help developers and platform engineers:
 
 # How to use the DevKit
 
-1. Set up as you would for [Go chaincode development](https://github.com/workingwithblockchain/writing-go-chaincodes#setupDevEnv)
+1. Learn to use [Docker](https://docs.docker.com/).
 
-2. Verify that you have a root directory referenced by `$GOPATH` environment variable containing these directories:
+2. Set up as you would for [Go chaincode development](https://github.com/workingwithblockchain/writing-go-chaincodes#setupDevEnv)
+
+3. Verify that you have a root directory referenced by `$GOPATH` environment variable containing these directories:
 ```
 drwxr-xr-x  3 <userid>  <groupid>  102  3 Feb 15:44 bin
 drwxr-xr-x  3 <userid>  <groupid>  102  3 Feb 15:44 pkg
 drwxr-xr-x  3 <userid>  <groupid>  102  3 Feb 15:44 src
 ```
 
-3. Navigate to `$GOPATH` and clone this repository via this command:
+4. Navigate to `$GOPATH` and clone this repository via this command:
 ```
 go get github.com/workingwithblockchain/fabric-devkit
 ```
 
-4. Please refer to the following use cases for the `DevKit`:
+5. Please refer to the following use cases for the `DevKit`:
 
 | User story | Guide |
 | --- | --- |
