@@ -2,8 +2,8 @@ version: '3'
 
 services:
 
-  fabric-client-node.org1.dev:
-    container_name: fabric-client-node.org1.dev
+  fabric-client.org1.dev:
+    container_name: fabric-client.org1.dev
     image: workingwithblockchain/fabric-client
     working_dir: /opt
     volumes:
