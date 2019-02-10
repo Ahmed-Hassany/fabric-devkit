@@ -1,21 +1,17 @@
-# Fabric Certificate Authority Lab
+# Fabric Certificate Authority (CA) client 
 
-The purpos of this lab is to help gain practical experience of the mechanics behind the Fabric Certificate Authority (CA).
+Please refer to [official documentation (version 1.4)](https://hyperledger-fabric-ca.readthedocs.io/en/release-1.4/) for a detailed explanation of the operations of Fabric CA and its relationship to other aspects of the Fabric artefacts.
 
-Before you use this lab, please refer to [official documentation (version 1.4)](https://hyperledger-fabric-ca.readthedocs.io/en/release-1.4/) for a detailed explanation of the operations of Fabric CA and its relationship to other aspects of the Fabric artefacts.
-
-Please ensure that you have the [prequisite](./introduction.md#prequisite).
-
-In this lab you will find a Fabric CA client toolkit containing scripts to enable you to interact with a Fabric CA server that forms part of the reference fabric network name [dev](./networks.md).
+This extension contains scripts to enable you to interact with a Fabric CA server that forms part of the [dev network](./networks.md).
 
 <figure>
     <img src="./images/fabric-ca-lab-arch.jpg" height="400" width="500"/>
-    <figcaption>Figure 1: Fabric CA lab architecture</figcaption>
+    <figcaption>Figure 1: Fabric CA and ca client interactions</figcaption>
 </figure>
 
 ## Content
 
-The lab content can be found [here](../reference/fabric-ca-client).
+The lab content can be found [here](../extensions/fabric-ca-client).
 
 | Item | Description |
 | --- | --- |
@@ -23,9 +19,9 @@ The lab content can be found [here](../reference/fabric-ca-client).
 | `Dockerfile` | A docker specification to help user create Fabric ca client toolkit Docker image. |
 | `fabric-ca-client-config.yaml` | A configuration file to help you set the necessary attributed to enable the Fabric CA client to talk to the CA server. |
 
-# What can I do with this lab?
+# How can I use this extension?
 
-Use this lab to conduct the following experiment:
+Use this extension to conduct the following experiment:
 
 * Enroll a registrant who is designated to register a credential (see script [registring-admin2.sh](../reference/fabric-ca-client/scripts/registering-admin2.sh));
 * Revoke a credential (see script [revoke-idenity.sh](../reference/fabric-ca-client/scripts/revoke-idenity.sh));
@@ -36,7 +32,7 @@ Use this lab to conduct the following experiment:
 
 # How-to
 
-1. Navigate to [reference dev network](../reference/networks/dev).
+1. Navigate to [dev network](../networks/dev).
 2. Run the command `./fabricOps.sh network start`, to create an operational Fabric network.
 3. Run the command `./fabricOps.sh ca-client start`, to create an instance of Fabric CA client.
 4. Run the command `./fabricOps.sh ca-client cli`, this will open up a shell similar this:
