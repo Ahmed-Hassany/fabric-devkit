@@ -145,7 +145,7 @@ function caClient(){
 
 # Fabric Client
 fabric_client_message="Useage: $0 fabric-client image | start | clean"
-fabric_client_image="workingwithblockchain/fabric-client"
+fabric_client_image="workingwithblockchain/fabric-node-client"
 fabric_client_container="fabric-client.org1.dev"
 
 function buildFabricClientImage(){
