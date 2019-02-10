@@ -37,7 +37,7 @@ go get github.com/workingwithblockchain/fabric-devkit
 | User story | Guide |
 | --- | --- |
 | As a developer, I would like to be able to spin up a small Fabric network locally, so I can debug my chaincode and app developed using Fabric SDK | [dev network](./guides/dev-network.md)|
-| As a platform engineer, I would like to see a fairly realistic working Kafka based Fabric network, so I can learn to set-up one | [kafka network]() |
+| As a platform engineer, I would like to see a fairly realistic working Kafka based Fabric network, so I can learn to set-up one | [kafka network](./guides/kafka-network.md) |
 | As a platform engineer, I would like to be able to conduct experiment with Fabric's cryptogen and configtxgen toolkit and associated configuration files without the need for complex set-up | [crypto-configtx](./guides/crypto-configtx.md) |
 | As a platform engineer, I would like to be able to inspect the internals of an operational Fabric Certificate Authority (CA) whilst performing enrollment and registration, so I know how to debug the CA. | [Fabric CA guides](./guides/fabric-ca.md) |
 | As a developer, I would like to be able to inspect the internals of an operational Fabric Certificate Authority (CA) whilst performing enrollment and registration, so I can diagnose problems caused by my application whilst interacting with the CA | [Fabric CA guides](./guides/fabric-ca.md) |
