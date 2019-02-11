@@ -9,7 +9,7 @@ This core components of a Kafka based Fabric network is illustrated in Figure 1.
     <figcaption>Figure 1: Kafka Fabric network</figcaption>
 </figure>
 
-# How to use the kafka network
+# How to use the kafka network?
 
 This is primarily intended to illustrate a minimum working Kafka based Fabric network. You can also use this as a basis to extend the network to more than two organisations network.
 
