@@ -4,24 +4,39 @@ Please refer to Fabric's [official documentation](https://hyperledger-fabric.rea
 
 This network has been configured to instantiate an organisation comprising one orderer, one certificate authority (ca) and one cli container operating in solo mode. The network can be extended to include a ca-client cli container and/or to include a RESTFul fabric-node-client based container.
 
-# How to use the dev network
+# How to use this network?
 
+* [Instantiating the dev network](#runNetwork)
 * [Debug chaincode](#debugChaincode)
 * [Debug fabric-sdk app](#debugSDK)
 
+## <a name="runNetwork">Instantiating the dev network</a>
+
+1. Run the command `fabricOps.sh artefacts` to build the necessary crytographic and channel artefacts.
+   
+2. Run the command `fabricOps.sh start` to get the dev network running.
+
+If you wish to stop and restart the network from a clean state run the command `fabricOps.sh clean`.
+
 ## <a name="debugChaincode">Debug chaincode</a>
 
-Step 1: Assuming that you have created a repository of a containing chaincodes in `$GOPATH/src/github.com/project/go-chaincodes` and you package your chaincodes under `$GOPATH/src/github.com/project/go-chaincodes/my-cc`.
+1. Assuming that you have created a repository containing chaincodes in `$GOPATH/src/github.com/project/go-chaincodes` and you package your chaincodes under `$GOPATH/src/github.com/project/go-chaincodes/my-cc`.
 
-Step 2: Modify the file [`.env`](#detEnv), value `CHAINCODE_PATH` to reference `$GOPATH/src/github.com/project/go-chaincodes`.
+2. Modify the file [`.env`](#detEnv), value `CHAINCODE_PATH` to reference `$GOPATH/src/github.com/project/go-chaincodes`.
+
+3. Simply start and re-start you network to have your chaincode installed.
 
 ## <a name="debugSDK">Debug SDK app</a>
 
 Please refer to [fabric-node-client](../extensions/fabric-node-client). This is a simple example to illustrate steps for creating a NodeJS based application via fabric-client SDK. This should apply to app written in any other language.
 
-STEP 1: Assuming that the node source code is held in `$GOPATH/src/github.com/project/my-node-app` (this is only an example, you can place it anywhere).
+The step for debugging SDK app.
 
-STEP 2: Package your app into a Docker image (see example code).
+1. Ensure that you have a running network see [here](#runNetwork).
+
+2. Assuming that the node source code is held in `$GOPATH/src/github.com/project/my-node-app` (this is only an example, you can place it anywhere).
+
+3. Package your app into a Docker image (see example code).
 
 STEP 3: Modify `fabricOps.sh` section name `Fabric Client` and the attribute `fabric-client-image` to the image of your choice and the functions `unitTestFabricClient()`, `smokeTestFabricClient()` accordingly.
 
