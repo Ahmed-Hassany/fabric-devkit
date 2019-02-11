@@ -1,21 +1,28 @@
-# Cryptogen and Configtxgen Lab 
+# Cryptogen and Configtxgen extension
 
-The purpose of this lab is to help you experiment with Fabric's `cryptogen` and `configtxgen` tools. These are tools used to create artefacts to enable the Fabric network to configure [Membership Service Provider (MSP)](https://hyperledger-fabric.readthedocs.io/en/release-1.4/msp.html) and [Channel configuration](https://hyperledger-fabric.readthedocs.io/en/release-1.4/configtx.html).
+`cryptogen` and `configtxgen` tools for generating cryptographic and channel materials necessary for the operations of the Fabric network. For more details please refer to Fabric's official documentations:
 
-Please ensure you have the [prequisite](./introduction.md#prequisite).
+* [Membership Service Provider (MSP)](https://hyperledger-fabric.readthedocs.io/en/release-1.4/msp.html)
+* [Channel configuration](https://hyperledger-fabric.readthedocs.io/en/release-1.4/configtx.html)
+* [cryptogen tool](https://hyperledger-fabric.readthedocs.io/en/release-1.4/commands/cryptogen.html)
+* [configtxgen](https://hyperledger-fabric.readthedocs.io/en/release-1.4/commands/configtxgen.html)
 
+> Note:
+> This extension has no direct links to the dev network. However, it enables you to use it to carry out experimentation with `crypto-config.yaml` and `configtx.yaml` here without impacting the ones found in the dev network. Once you have a configuration that suits your need, you can copy those files to any network orchestrator you like.
 
-## Content
+# How to use this extension?
 
-The lab is [here](../reference/crypto-configtx).
+1. Modify [configtx.yaml](../extensions/crypto-configtx/configtx.yaml) and [crypto-config.yaml](../extensions/crypto-configtx/crypto-config.yaml) to meet your requirement.
+2. Navigate to the [extension](../extensions/crypto-configtx).
+3. Execute `test.sh` and this will generate a folder `./assets` where you will find all the required cryptographic and channel artefacts as specified in step 1.
+
+# Content
+
+The extension is located [here](../extensions/crypto-configtx).
 
 | Item | Description |
 | --- | --- |
 | `configtx.yaml` | This is a file to specify channel configurations and genesis block. Please refer to [official documentation](https://hyperledger-fabric.readthedocs.io/en/release-1.4/commands/configtxgen.html?highlight=configtx.yaml) for use case. |
 | `crypto-config.yaml` | This is a file to specify cryptographic artefacts. Please refer to [official documentation](https://hyperledger-fabric.readthedocs.io/en/release-1.4/msp.html#how-to-generate-msp-certificates-and-their-signing-keys) for use case. |
 
-## How to use the lab
 
-1. Modify [configtx.yaml](../reference/crypto-configtx/configtx.yaml) and [crypto-config.yaml](../reference/crypto-configtx/crypto-config.yaml) to meet your requirement.
-2. Navigate to the [lab](../reference/crypto-configtx).
-3. Execute `test.sh` and this will generate a folder `./assets` where you will find all the required cryptographic and channel artefacts as specified in step 1.
