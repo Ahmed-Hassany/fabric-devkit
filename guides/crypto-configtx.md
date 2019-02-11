@@ -24,5 +24,7 @@ The extension is located [here](../extensions/crypto-configtx).
 | --- | --- |
 | `configtx.yaml` | This is a file to specify channel configurations and genesis block. Please refer to [official documentation](https://hyperledger-fabric.readthedocs.io/en/release-1.4/commands/configtxgen.html?highlight=configtx.yaml) for use case. |
 | `crypto-config.yaml` | This is a file to specify cryptographic artefacts. Please refer to [official documentation](https://hyperledger-fabric.readthedocs.io/en/release-1.4/msp.html#how-to-generate-msp-certificates-and-their-signing-keys) for use case. |
+| `generate-artefacts.sh` | This is a supporting script for `test.sh` |
+| `test.sh` | This is the principal script for generating cryptographic and channel artefacts |
 
 
