@@ -5,7 +5,7 @@ COMMAND="$1"
 SUBCOMMAND="$2"
 
 # Network
-network_subcommand_message="Useage: $0 network artefacts | start | initialize | upgrade | configure"
+network_subcommand_message="Useage: $0 network artefacts | start | initialize | upgrade"
 network_name="dev_fabric-network"
 
 function createCryptoChannelArtefacts(){
