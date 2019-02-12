@@ -34,13 +34,13 @@ The step for debugging SDK app.
 
 1. Ensure that you have a running network see [here](#runNetwork).
 
-2. Assuming that the node source code is held in `$GOPATH/src/github.com/project/my-node-app` (this is only an example, you can place it anywhere).
+2. Assuming that the node source code is held in `$GOPATH/src/github.com/project/my-node-app` (this is only an example location, you can place it anywhere).
 
-3. Package your app into a Docker image (see example code).
+3. Package your app into a Docker image, please follow the [example code](../extensions/fabric-node-client)).
+   
+4. Modify the functions `unitTestFabricClient()`, `smokeTestFabricClient()` in `fabricOps.sh` accordingly.
 
-STEP 3: Modify `fabricOps.sh` section name `Fabric Client` and the attribute `fabric-client-image` to the image of your choice and the functions `unitTestFabricClient()`, `smokeTestFabricClient()` accordingly.
-
-STEP 4: Modify the file [`docker-compose.fabric-client.yaml`](#fabricClientCompose) and make sure the image name matches the name you mentioned in STEP 3.
+5. Modify the file [`docker-compose.fabric-client.yaml`](#fabricClientCompose).
 
 # Content
 
@@ -75,15 +75,17 @@ FABRIC_TOOL_IMAGE_TAG=latest
 CHAINCODE_PATH=../../chaincodes/
 ```
 
-**NOTE:** Do not modify `COMPOSE_PROJECT_NAME` and `NETWORKS`
+>Note:
+>Do not modify `COMPOSE_PROJECT_NAME` and `NETWORKS`. These values are use to generate bridging network
 
 ## <a name="fabricClientCompose">docker-compose.fabric-client.yaml</a>
 
-In the file:
+This is the main orchestrator for fabric-client.
 
 ```
   fabric-client.org1.dev:
-    image: workingwithblockchain/fabric-node-client
+    container_name: fabric-client.org1.dev
+    image: workingwithblockchain/fabric-client
     volumes:
       - ./network-config.yaml:/opt/network-config.yaml
       - ./org1.yaml:/opt/org1.yaml
@@ -94,7 +96,14 @@ In the file:
       - ../../extensions/fabric-node-client/wallet:/tmp
 ```
 
-If you wish to switch to a different fabric app, simply switch the attribute `image` to your choice. 
+1. `./network-config.yaml:/opt/network-config.yaml` maps the network configuration (i.e. peer names, addresses, etc.) into the `fabric-client` container.
+
+2. `./org1.yaml:/opt/org1.yaml` maps the client configuration into the `fabric-client` container.
+
+3. `./services.json:/opt/services.json` maps a nodeJS object combining information from `network-config.yaml` and `org1.yaml`.
+
+> Note:
+> `network-config.yaml` and `org1.yaml` (there is no default file names, you can name it the way you like) are standardised configuration files for node fabric-client sdk. Please refer to the [official documentation](https://fabric-sdk-node.github.io/release-1.4/index.html#toc0__anchor) for details.
 
 ## <a name="fabricOps">fabricOps.sh</a>
 
@@ -117,7 +126,7 @@ Command to create Fabric network related crytographic and channel arefects, and 
 | Subcommand | Description |
 | --- | --- |
 | `artefacts` | Create cryptographic and channel artefacts |
-| `start` | Instantiate the dev network |
+| `start` | Instantiate the dev network and pre-install this go chaincode [minimalcc](../chaincodes/minimalcc) |
 
 #### `ca-client` command 
 
@@ -129,10 +138,10 @@ Command to add a CA client container to a running Fabric network.
 
 | Subcommand | Description |
 | --- | --- |
-| `image` | builds a new Docker image of Fabric CA Client tool |
-| `cli` | spin up a bash shell |
-| `start` | start an instance of Fabric CA Client container |
-| `clean` | remove instances of Fabric CA Client container |
+| `image` | builds a new Docker image of Fabric CA client tool |
+| `cli` | spin up a bash shell of the Fabric CA client |
+| `start` | start an instance of Fabric CA client container |
+| `clean` | remove instances of Fabric CA client container |
 
 #### `fabric-node-client` command
 
