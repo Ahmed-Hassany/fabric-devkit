@@ -10,13 +10,14 @@ The maintainer(s) of this project is grateful to Aladdin for sponsoring the effo
 
 The design goals of kit are to help developers and platform engineers:
 
-* learn through a series of smoke tests and reference networks, the system architecture of Hyperledger Fabric;
-* to define, instantiate and configure a Fabric network to support development effort or learn to orchestrate a Kafka based Fabric network;
-* to help debug chaincodes and client apps.
+* understand the system architecture of Hyperledger Fabric through a series of smoke tests and reference networks;
+* to define, instantiate and configure a Fabric network to support development effort;
+* learn to orchestrate a Kafka based Fabric network;
+* debug chaincodes and client apps.
 
-# How to use the DevKit
+# Prereqisite
 
-1. Learn to use [Docker](https://docs.docker.com/).
+1. Knowledge of [Docker](https://docs.docker.com/).
 
 2. Set up as you would for [Go chaincode development](https://github.com/workingwithblockchain/writing-go-chaincodes#setupDevEnv)
 
@@ -32,16 +33,25 @@ drwxr-xr-x  3 <userid>  <groupid>  102  3 Feb 15:44 src
 go get github.com/workingwithblockchain/fabric-devkit
 ```
 
-5. Please refer to the following use cases for the `DevKit`:
+# How to use the `DevKit`
 
 | User story | Guide |
 | --- | --- |
-| As a developer, I would like to be able to spin up a small Fabric network locally, so I can debug my chaincode and app developed using Fabric SDK | [dev network](./guides/dev-network.md)|
-| As a platform engineer, I would like to see a fairly realistic working Kafka based Fabric network, so I can learn to set-up one | [kafka network](./guides/kafka-network.md) |
-| As a platform engineer, I would like to be able to conduct experiment with Fabric's cryptogen and configtxgen toolkit and associated configuration files without the need for complex set-up | [crypto-configtx](./guides/crypto-configtx.md) |
-| As a platform engineer, I would like to be able to inspect the internals of an operational Fabric Certificate Authority (CA) whilst performing enrollment and registration, so I know how to debug the CA. | [Fabric CA guides](./guides/fabric-ca.md) |
-| As a developer, I would like to be able to inspect the internals of an operational Fabric Certificate Authority (CA) whilst performing enrollment and registration, so I can diagnose problems caused by my application whilst interacting with the CA | [Fabric CA guides](./guides/fabric-ca.md) |
-| As a developer, I would like to have a pre-built simple RESTful nodeJS based component that is able to interact with the reference networks, so I learn to create apps using `fabric-node-client` sdk | [fabric-node-client](./guides/fabric-node-client.md)|
+| As a developer, I would like to be able to spin up a small Fabric network locally, so I can use it to debug my chaincode and client app. | [dev network guide](./guides/dev-network.md)|
+| As a platform engineer, I would like to see a fairly realistic working Kafka based Fabric network, so I can learn to set-up one. | [kafka network guide](./guides/kafka-network.md) |
+| As a platform engineer, I would like to be able to conduct experiment with Fabric's cryptogen and configtxgen toolkit and associated configuration files without the need for complex set-up. | [crypto-configtx guide](./guides/crypto-configtx.md) |
+| As a platform engineer, I would like to be able to inspect the internals of an operational Fabric Certificate Authority (CA) whilst performing enrollment and registration, so I know how to debug the CA. | [Fabric CA guide](./guides/fabric-ca.md) |
+| As a developer, I would like to be able to inspect the internals of an operational Fabric Certificate Authority (CA) whilst performing enrollment and registration, so I can diagnose problems caused by my application whilst interacting with the CA. | [Fabric CA guide](./guides/fabric-ca.md) |
+| As a developer, I would like to have a pre-built simple RESTful nodeJS based component that is able to interact with the reference networks, so I learn to create apps using `fabric-client` sdk. | [fabric-node-client guide](./guides/fabric-node-client.md)|
+
+# Content
+
+| Item | Description |
+| --- | --- |
+| `chaincodes` | A collection of simple Go chaincodes intended primarily to smoke test the preconfigured networks. |
+| `extensions` | These are collections of scripts intended to expand the features of the predefined networks. |
+| `guides` | User guides. |
+| `networks` | Preconfigured Fabric network orchestrators. |
 
 # Release Notes
 
