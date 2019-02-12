@@ -117,16 +117,23 @@ This is the top level command
  
 #### `network` command
 
-Command to create Fabric network related crytographic and channel arefects, and to spin-up a working dev Fabric network.
+Command to create Fabric network related:
+
+* crytographic and channel arefects;
+* to spin-up a working Fabric network;
+* intialise (create channels, install chaincode and initialise chaincode first version) the running Fabric network;
+* or upgrade the chaincode in a running Fabric network.
 
 ```
-./fabricOps.sh network artefacts | start
+./fabricOps.sh network artefacts | start | intialize | upgrade
 ```
 
 | Subcommand | Description |
 | --- | --- |
-| `artefacts` | Create cryptographic and channel artefacts |
-| `start` | Instantiate the dev network and pre-install this go chaincode [minimalcc](../chaincodes/minimalcc) |
+| `artefacts` | Create cryptographic and channel artefacts. |
+| `start` | Instantiate the dev network. |
+| `initialize` | Create, install and instantiate a chaincode [minimalcc](../chaincodes/minimalcc) on a network with no chaincode. |
+| `upgrade` | Upgrade to a new version of chaincode and automatically append the new version with a new datetime stamp. |
 
 #### `ca-client` command 
 
