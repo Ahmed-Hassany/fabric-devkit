@@ -124,6 +124,11 @@ Command to create Fabric network related:
 * intialise (create channels, install chaincode and initialise chaincode first version) the running Fabric network;
 * or upgrade the chaincode in a running Fabric network.
 
+> Note:
+> Please make sure the network operations is executed in the follow sequence:
+> 1. For newly instantiated network: `network artefacts`, then `network start`, then `network init`;
+> 2. Upgrading new chaincode: `network upgrade`.
+
 ```
 ./fabricOps.sh network artefacts | start | intialize | upgrade
 ```
@@ -132,7 +137,7 @@ Command to create Fabric network related:
 | --- | --- |
 | `artefacts` | Create cryptographic and channel artefacts. |
 | `start` | Instantiate the dev network. |
-| `initialize` | Create, install and instantiate a chaincode [minimalcc](../chaincodes/minimalcc) on a network with no chaincode. |
+| `init` | Create, install and instantiate a chaincode [minimalcc](../chaincodes/minimalcc) on a network with no chaincode. |
 | `upgrade` | Upgrade to a new version of chaincode and automatically append the new version with a new datetime stamp. |
 
 #### `ca-client` command 
