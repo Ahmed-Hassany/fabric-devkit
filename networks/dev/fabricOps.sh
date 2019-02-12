@@ -145,26 +145,32 @@ function caClient(){
 
 # Fabric Client
 fabric_client_message="Useage: $0 fabric-client image | start | clean"
-fabric_client_image="workingwithblockchain/fabric-node-client"
+fabric_client_image="workingwithblockchain/fabric-client"
 fabric_client_container="fabric-client.org1.dev"
 
+#######################################################
+# Modify these functions to suit your implementation. #
+#######################################################
 function buildFabricClientImage(){
-    pushd ../../extensions/fabric-node-client
+    pushd ../../extensions/fabric-node-client # modify this to the location of your client implementation
         docker build -t $fabric_client_image .  
     popd
 }
 
+# This unit test is defaulted to node based client. Modify to suit your implementation language. 
 function unitTestFabricClient(){
     echo "Fabric client unit testing"
     docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.fabric-client.yaml run --rm $fabric_client_container /bin/bash -c 'npm run unit:test'
     return $?
 }
 
+# This smoke test is defaulted to node based client. Modify to suit your implementation language. 
 function smokeTestFabricClient(){
     echo "Fabric client smoke testing"
     docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.fabric-client.yaml run --rm $fabric_client_container /bin/bash -c 'npm run smoke:test'
     return $?
 }
+########################################################
 
 function startFabricClient(){
     docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.fabric-client.yaml up -d $fabric_client_container

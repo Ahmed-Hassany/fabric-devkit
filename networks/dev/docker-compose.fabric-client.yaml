@@ -4,7 +4,7 @@ services:
 
   fabric-client.org1.dev:
     container_name: fabric-client.org1.dev
-    image: workingwithblockchain/fabric-node-client
+    image: workingwithblockchain/fabric-client
     working_dir: /opt
     volumes:
       - ./network-config.yaml:/opt/network-config.yaml
