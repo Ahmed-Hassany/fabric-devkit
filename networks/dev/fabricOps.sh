@@ -5,7 +5,7 @@ COMMAND="$1"
 SUBCOMMAND="$2"
 
 # Network
-network_subcommand_message="Useage: $0 network artefacts | start"
+network_subcommand_message="Useage: $0 network artefacts | start | initialize | upgrade | configure"
 network_name="dev_fabric-network"
 
 function createCryptoChannelArtefacts(){
@@ -41,25 +41,21 @@ function clearCAArtefacts(){
     rm -rf ./fabric-ca-home
 }
 
-function startContainers(){
+function startNetworkContainers(){
     docker-compose -f ./docker-compose.fabric.yaml up -d orderer.dev
     docker-compose -f ./docker-compose.fabric.yaml up -d ca.org1.dev
     docker-compose -f ./docker-compose.fabric.yaml up -d peer0.org1.dev
     docker-compose -f ./docker-compose.fabric.yaml up -d cli.org1.dev
 }
 
-function initialiseNetwork(){
+function initializeNetwork(){
     docker exec cli.org1.dev /bin/bash -c '${PWD}/scripts/channelOps.sh'
     docker exec cli.org1.dev /bin/bash -c '${PWD}/scripts/installCC.sh'
     docker exec cli.org1.dev /bin/bash -c '${PWD}/scripts/instantiateCC.sh'
 }
 
-function startNetwork(){
-    clearContainers
-    clearCryptoChannelArtefacts
-    createCryptoChannelArtefacts
-    startContainers
-    initialiseNetwork
+function upgradeNetwork(){
+    docker exec cli.org1.dev /bin/bash -c '${PWD}/scripts/upgradeCC.sh'
 }
 
 function network(){
@@ -70,7 +66,14 @@ function network(){
             createCryptoChannelArtefacts
             ;;
         "start")
-            startNetwork
+            clearContainers
+            startNetworkContainers
+            ;;
+        "initialize")
+            initializeNetwork
+            ;;
+        "upgrade")
+            upgradeNetwork
             ;;
         *)
             echo $network_subcommand_message
