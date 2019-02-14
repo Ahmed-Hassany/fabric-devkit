@@ -12,9 +12,9 @@ This network has been configured to instantiate an organisation comprising one o
 
 ## <a name="runNetwork">Instantiating the dev network</a>
 
-1. Run the command `fabricOps.sh artefacts` to build the necessary crytographic and channel artefacts.
+1. Run the command `./fabricOps.sh artefacts` to build the necessary crytographic and channel artefacts.
    
-2. Run the command `fabricOps.sh start` to get the dev network running.
+2. Run the command `./fabricOps.sh start` to get the dev network running.
 
 If you wish to stop and restart the network from a clean state run the command `fabricOps.sh clean`.
 
