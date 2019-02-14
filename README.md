@@ -15,7 +15,7 @@ The design goals of kit are to help developers and platform engineers:
 * learn to orchestrate a Kafka based Fabric network;
 * debug chaincodes and client apps.
 
-# Prereqisite
+# Prerequisite
 
 1. Knowledge of [Docker](https://docs.docker.com/).
 
