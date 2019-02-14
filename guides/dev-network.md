@@ -16,7 +16,7 @@ This network has been configured to instantiate an organisation comprising one o
    
 2. Run the command `./fabricOps.sh start` to get the dev network running.
 
-If you wish to stop and restart the network from a clean state run the command `fabricOps.sh clean`.
+If you wish to stop and restart the network from a clean state run the command `./fabricOps.sh clean`.
 
 ## <a name="debugChaincode">Debug chaincode</a>
 
