@@ -22,4 +22,19 @@ describe('== End to end testing ==', () => {
         });
     });
 
+    context('POST /invoke', () => {
+        it(`expects to return 200`, (done) => {
+            agent
+                .post('/invoke')
+                .send({
+                    enrollmentName: 'admin',
+                    enrollmentSecrets: 'adminpw',
+                    fcn: 'pay',
+                    args: ['Paul','1','John']
+                })
+                .set('Accept', 'application/json')
+                .expect(200, done)
+        }).timeout(5000);
+    });
+
 });
