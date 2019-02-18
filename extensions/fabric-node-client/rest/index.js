@@ -27,6 +27,41 @@ server.timeout = 240000;
 
 const blockchain = require('./blockchain');
 
+app.post('/register', async (req, res)=>{
+  logger.debug('==================== ENROLL ==================');
+  const adminName = req.body.adminName;
+  const adminPassword = req.body.adminPassword;
+  const registrantName = req.body.registrantName;
+
+  logger.debug('Username is: ' + adminName);
+  logger.debug('Password is: ' + adminPassword);
+  logger.debug('Registrant is: ' + registrantName);
+
+  let result = null;
+  const clientObj = await blockchain.getClient(adminName, adminPassword);
+  if (clientObj.success) {
+    
+    const registerUserObj = await blockchain.registerUser(clientObj.payload.client, clientObj.payload.enrolledUserObj, registrantName);
+    console.log(registerUserObj);
+    result = {
+      success: 200,
+      message: {
+        registrantID: registrantName,
+		    registrantSecret: registerUserObj.payload.registrantSecret
+      }
+    }
+
+  }else{
+    result = {
+      success: 500,
+      message: `Unable to register ${registrantName}`
+    };
+  }
+  
+  res.send(result);
+  
+});
+
 app.post('/invoke', async (req, res) => {
 	logger.debug('==================== INVOKE ON CHAINCODE ==================');
 

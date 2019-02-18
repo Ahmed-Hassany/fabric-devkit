@@ -12,7 +12,6 @@ services:
       - ./services.json:/opt/services.json
       - ./crypto-config:/opt/crypto-config
       - ./channel-artefacts:/opt/channel-artefacts
-      - ../../extensions/fabric-node-client/test:/opt/test
       - ../../extensions/fabric-node-client/wallet:/tmp
     ports:
       - 9000:8080

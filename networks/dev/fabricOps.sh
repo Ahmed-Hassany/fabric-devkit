@@ -147,7 +147,7 @@ function caClient(){
 } 
 
 # Fabric Client
-fabric_client_message="Useage: $0 fabric-client image | start | clean"
+fabric_client_message="Useage: $0 fabric-client image | start | e2e | clean"
 fabric_client_image="workingwithblockchain/fabric-client"
 fabric_client_container="fabric-client.org1.dev"
 
@@ -171,6 +171,12 @@ function unitTestFabricClient(){
 function smokeTestFabricClient(){
     echo "Fabric client smoke testing"
     docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.fabric-client.yaml run --rm $fabric_client_container /bin/bash -c 'npm run smoke:test'
+    return $?
+}
+
+function e2eTestFabricClient(){
+    echo "Fabric client e2e testing"
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.fabric-client.yaml run --rm $fabric_client_container /bin/bash -c 'npm run e2e:test'
     return $?
 }
 ########################################################
@@ -223,6 +229,9 @@ function fabricClient(){
             fi
             startFabricClient
             ;;
+        "e2e")
+            e2eTestFabricClient
+            ;;    
         "clean")
             cleanFabricClientContainer
             cleanFabricClientImage
