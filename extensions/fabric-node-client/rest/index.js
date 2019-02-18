@@ -65,15 +65,41 @@ app.post('/register', async (req, res)=>{
 app.post('/invoke', async (req, res) => {
 	logger.debug('==================== INVOKE ON CHAINCODE ==================');
 
-	var fcn = req.body.fcn;
-	var args = req.body.args;
+  const enrollmentName = req.body.enrollmentName;
+  const enrollmentSecrets = req.body.enrollmentSecrets;
+	const fcn = req.body.fcn;
+	const args = req.body.args;
 
+  logger.debug('enrollmentName : ' + enrollmentName);
+  logger.debug('enrollmentSecrets: ' + enrollmentSecrets);
 	logger.debug('fcn  : ' + fcn);
 	logger.debug('args  : ' + args);
 
-  const txIDString = await blockchain.invokeTransaction(fcn,args);
-  logger.debug('Trx created : ' + txIDString);
-  res.json({success: true, trxId: txIDString});
+  let responseMessage = null;
+
+  const clientObject = await blockchain.getClient(enrollmentName, enrollmentSecrets);
+  if (clientObject.success){
+    const proposalObject = await blockchain.proposeTransaction(clientObject.payload.client, fcn, args);
+    if (proposalObject.success){
+      const committedObject = await blockchain.commitTransaction(clientObject.payload.client, proposalObject.payload.txId, proposalObject.payload.proposalResponses, proposalObject.payload.proposal);
+      if (committedObject.success){
+        if (committedObject.payload.commitStatus == 'SUCCESS'){
+          const results = await blockchain.attachEventHub(clientObject.payload.client, proposalObject.payload.txIDString, 3000);
+          responseMessage = {success: true, message: results};
+        }else{
+          responseMessage = {success: false, message: 'Unable to commit'};
+        }
+      }else{
+        responseMessage = {success: false, message: 'Unable to commit'};
+      }
+    }else{
+      responseMessage = {success: false, message: 'Proposal failed'};
+    }
+  }else{
+    responseMessage = {success: false, message: 'Unable to secure client'};
+  }
+  
+  res.json(responseMessage);
 });
 
 // Invoke transaction on chaincode on target peers
