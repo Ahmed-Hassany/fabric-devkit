@@ -37,4 +37,19 @@ describe('== End to end testing ==', () => {
         }).timeout(5000);
     });
 
+    context('POST /query', ()=>{
+        it(`expects to return 200`, (done)=>{
+            agent
+                .post('/query')
+                .send({
+                    enrollmentName: 'admin',
+                    enrollmentSecrets: 'adminpw',
+                    fcn: 'query',
+                    args: ['Paul']                    
+                })
+                .set('Accept', 'application/json')
+                .expect(200, done);
+        });
+    });
+
 });

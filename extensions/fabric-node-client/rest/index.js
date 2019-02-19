@@ -112,15 +112,38 @@ app.post('/invoke', async (req, res) => {
 app.post('/query', async (req, res) => {
 	logger.debug('==================== QUERY ON CHAINCODE ==================');
 
-	var fcn = req.body.fcn;
-	var args = req.body.args;
+  const enrollmentName = req.body.enrollmentName;
+  const enrollmentSecrets = req.body.enrollmentSecrets;
+	const fcn = req.body.fcn;
+	const args = req.body.args;
 
+  logger.debug('enrollmentName : ' + enrollmentName);
+  logger.debug('enrollmentSecrets: ' + enrollmentSecrets);
 	logger.debug('fcn  : ' + fcn);
 	logger.debug('args  : ' + args);
 
-  const data = await blockchain.queryChaincode(fcn,args);
-  logger.debug('data found : ' + data);
-  res.json({success: true, data: data});
+  const clientObject = await blockchain.getClient(enrollmentName, enrollmentSecrets);
+  if (!clientObject.success){
+    res.send({
+      success: 500, 
+      message: "Unable to enroll users"});
+  }
+
+
+  const queryObject = await blockchain.queryChaincode(clientObject.payload.client, fcn,args);
+  if (!queryObject.success){
+    res.send({
+      success: 500,
+      message: queryObject.message
+    });
+  }
+
+  console.log(queryObject.payload.responses);
+  res.send({
+    success: 200,
+    message: queryObject.payload.responses
+  });
+
 });
 
 // Invoke transaction on chaincode on target peers
