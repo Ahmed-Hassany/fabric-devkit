@@ -75,31 +75,28 @@ app.post('/invoke', async (req, res) => {
 	logger.debug('fcn  : ' + fcn);
 	logger.debug('args  : ' + args);
 
-  let responseMessage = null;
-
   const clientObject = await blockchain.getClient(enrollmentName, enrollmentSecrets);
-  if (clientObject.success){
-    const proposalObject = await blockchain.proposeTransaction(clientObject.payload.client, fcn, args);
-    if (proposalObject.success){
-      const committedObject = await blockchain.commitTransaction(clientObject.payload.client, proposalObject.payload.txId, proposalObject.payload.proposalResponses, proposalObject.payload.proposal);
-      if (committedObject.success){
-        if (committedObject.payload.commitStatus == 'SUCCESS'){
-          const results = await blockchain.attachEventHub(clientObject.payload.client, proposalObject.payload.txIDString, 3000);
-          responseMessage = {success: true, message: results};
-        }else{
-          responseMessage = {success: false, message: 'Unable to commit'};
-        }
-      }else{
-        responseMessage = {success: false, message: 'Unable to commit'};
-      }
-    }else{
-      responseMessage = {success: false, message: 'Proposal failed'};
-    }
-  }else{
-    responseMessage = {success: false, message: 'Unable to secure client'};
+  if (!clientObject.success){
+    res.json({success: false, message: "Unable to enroll users"});
+  }
+
+  const proposalObject = await blockchain.proposeTransaction(clientObject.payload.client, fcn, args);
+  if (!proposalObject.success){
+    res.json({success: false, message: "Unable to commit your transaction"});
   }
   
-  res.json(responseMessage);
+  const committedObject = await blockchain.commitTransaction(clientObject.payload.client, proposalObject.payload.txId, proposalObject.payload.proposalResponses, proposalObject.payload.proposal);
+  if (!committedObject.success){
+    res.json({success: false, message: "Unable to commit your transaction"});
+  }
+
+  if (committedObject.payload.commitStatus == 'SUCCESS'){
+    const results = await blockchain.attachEventHub(clientObject.payload.client, proposalObject.payload.txIDString, 3000);
+    res.json({success: true, message: results});
+  }
+  
+  res.json({success: false, message: 'Unable to commit'});
+
 });
 
 // Invoke transaction on chaincode on target peers
