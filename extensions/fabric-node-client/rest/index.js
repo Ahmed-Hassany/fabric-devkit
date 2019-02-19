@@ -146,22 +146,45 @@ app.post('/query', async (req, res) => {
 
 });
 
+app.get('/blocks', async (req, res)=>{
+  logger.debug('================ BLOCK INFO ===================');
+  const blockInfoObject = await blockchain.blockInfo();
+  if (!blockInfoObject.success){
+    res.send({
+      success: 500,
+      message: blockInfoObject.message
+    });
+  }
+
+  res.send({
+      success: 200,
+      message: blockInfoObject.payload.result
+  });
+
+});
+
 // Invoke transaction on chaincode on target peers
-app.get('/blocks/:blockId', async (req, res) => {
-	logger.debug('==================== QUERY ON CHAINCODE ==================');
+app.get('/blocks/:blockNumber', async (req, res) => {
+	logger.debug('==================== BLOCK INFO BY BLOCK NUMBER ==================');
 
-  const blockId = req.params.blockId;
+  const blockNumber = req.params.blockNumber;
 
-	logger.debug('blockId  : ' + blockId);
+	logger.debug('blockNumber  : ' + blockNumber);
 
-  const blockData = await blockchain.getBlockByNumber(blockId);
-  logger.debug('Block found : ' + blockData);
-  res.json({success: true, data: blockData});
+  const blockObject = await blockchain.getBlockByNumber(blockNumber);
+  if (!blockObject.success){
+    res.send({
+      success: 500,
+      message: blockObject.message
+    });
+  }
+
+  res.send({success: 200, data: blockObject.payload.reponse});
 });
 
 // Invoke transaction on chaincode on target peers
 app.get('/transactions/:trxHash', async (req, res) => {
-	logger.debug('==================== QUERY ON CHAINCODE ==================');
+	logger.debug('==================== BLOCK INFO BY BLOCK HASH ==================');
 
   const trxHash = req.params.trxHash;
 
@@ -169,5 +192,5 @@ app.get('/transactions/:trxHash', async (req, res) => {
 
   const blockData = await blockchain.getBlockByHash(trxHash);
   logger.debug('Block found : ' + blockData);
-  res.json({success: true, data: blockData});
+  res.json({success: 200, data: blockData});
 });

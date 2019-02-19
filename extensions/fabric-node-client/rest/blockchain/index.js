@@ -452,11 +452,67 @@ module.exports.queryChaincode = async (client, fcn, args) => {
 
 /*
 Method: 
+   blockInfo
+Description: 
+   A method to get the latest blockinfo
+Params:
+	<none>
+Return: {
+   success: <true | false>,
+   payload: {
+	    result: result
+   },
+   message: <string>
+}
+*/
+module.exports.blockInfo = async ()=>{
+
+	const clientObject = await this.getClient(serviceConfig.adminCred.enrollmentID, serviceConfig.adminCred.enrollmentSecrets);
+	if (!clientObject.success){
+		return 	{
+			success: false,
+			payload: null,
+			message: `Failed: unable to secure client`
+		}
+	}
+
+	const client = clientObject.payload.client;
+	const channel = await client.getChannel(serviceConfig.blockchain.channelName);
+	if (!channel) {
+		const message = util.format('Channel %s was not defined in the connection profile', serviceConfig.blockchain.channelName);
+		return 	{
+			success: false,
+			payload: null,
+			message: `Failed: ${message}`
+		};
+	}
+
+	try{
+		const result = await channel.queryInfo();
+		return {
+			success: true,
+			payload: {
+				result: result
+			},
+			message: `Return payload {
+				result: ${result}
+			}`
+		};
+	}catch(error){
+		return 	{
+			success: false,
+			payload: null,
+			message: `Failed: ${message}`
+		};
+	}
+}
+
+/*
+Method: 
    getBlockByNumber
 Description: 
-   A method to query a chaincode for a given enrollment 
+   A method to query a block from 
 Params:
-  - client: A successfully enrolled client
 	- blockNumber: A number representing the position of a block in the chain
 Return: {
    success: <true | false>,
@@ -466,9 +522,19 @@ Return: {
    message: <string>
 }
 */
-module.exports.getBlockByNumber = async (client, blockNumber) => {
+module.exports.getBlockByNumber = async (blockNumber) => {
 
-	logger.debug('Successfully got the fabric client for the organization "%s"', serviceConfig.blockchain.org);
+	const clientObject = await this.getClient(serviceConfig.adminCred.enrollmentID, serviceConfig.adminCred.enrollmentSecrets);
+	if (!clientObject.success){
+		return 	{
+			success: false,
+			payload: null,
+			message: `Failed: unable to secure client`
+		}
+	}
+
+	const client = clientObject.payload.client;
+
 	var channel = client.getChannel(serviceConfig.blockchain.channelName);
 	if (!channel) {
 		let message = util.format('Channel %s was not defined in the connection profile', serviceConfig.blockchain.channelName);
@@ -520,7 +586,6 @@ Method:
 Description: 
    A method to query a block in the blockchain by hash id 
 Params:
-  - client: A successfully enrolled client
 	- hash: A hash value representing the identity of a block in the chain
 Return: {
    success: <true | false>,
@@ -530,7 +595,18 @@ Return: {
    message: <string>
 }
 */
-module.exports.getBlockByHash = async (client, hash) => {
+module.exports.getBlockByHash = async (hash) => {
+
+	const clientObject = await this.getClient(serviceConfig.adminCred.enrollmentID, serviceConfig.adminCred.enrollmentSecrets);
+	if (!clientObject.success){
+		return 	{
+			success: false,
+			payload: null,
+			message: `Failed: unable to secure client`
+		}
+	}
+
+	const client = clientObject.payload.client;
 
 	logger.debug('Successfully got the fabric client for the organization "%s"', serviceConfig.blockchain.org);
 	var channel = client.getChannel(serviceConfig.blockchain.channelName);
@@ -559,68 +635,6 @@ module.exports.getBlockByHash = async (client, hash) => {
 			};
 		} else {
 			const message = 'Unable to get block by hash';
-			logger.error(message);
-			return {
-				success: false,
-				payload: null,
-				message: `Failed: ${message}`
-			}
-		}
-	} catch (error) {
-		const message = 'Failed to query due to error: ' + error.stack ? error.stack : error
-		logger.error(message);
-		return {
-			success: false,
-			payload: null,
-			message: `Failed: ${message}`
-		};
-	}
-};
-
-/*
-Method: 
-   getChainInfo
-Description: 
-   A method to query chain info 
-Params:
-  - client: A successfully enrolled client
-Return: {
-   success: <true | false>,
-   payload: {
-					reponse: <payload from the response
-   },
-   message: <string>
-}
-*/
-module.exports.getChainInfo = async (client) => {
-
-	logger.debug('Successfully got the fabric client for the organization "%s"', serviceConfig.blockchain.org);
-	var channel = client.getChannel(serviceConfig.blockchain.channelName);
-	if (!channel) {
-		let message = util.format('Channel %s was not defined in the connection profile', serviceConfig.blockchain.channelName);
-		logger.error(message);
-		return 	{
-			success: false,
-			payload: null,
-			message: `Failed: ${message}`
-		}
-	}
-
-	try {
-		let responsePayload = await channel.queryInfo(serviceConfig.blockchain.peer);
-		if (responsePayload) {
-			logger.debug(responsePayload);
-			return{
-				success: true,
-				payload: {
-					reponse: responsePayload
-				},
-				message: `Return Payload {
-					reponse: ${responsePayload}
-				}`
-			};
-		} else {
-			const message = 'Unable to get chaincode information';
 			logger.error(message);
 			return {
 				success: false,

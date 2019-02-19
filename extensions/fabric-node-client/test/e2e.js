@@ -52,4 +52,20 @@ describe('== End to end testing ==', () => {
         });
     });
 
+    context('GET /blocks', ()=>{
+        it(`expects to return 200`, (done)=>{
+            agent
+                .get('/blocks')
+                .expect(200, done);
+        });
+    });
+
+    context('GET /blocks/1', ()=>{
+        it(`expects to return 200`, (done)=>{
+            agent
+                .get('/blocks/1')
+                .expect(200, done);
+        });
+    });
+
 });
