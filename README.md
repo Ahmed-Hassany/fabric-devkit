@@ -33,7 +33,7 @@ drwxr-xr-x  3 <userid>  <groupid>  102  3 Feb 15:44 src
 go get github.com/workingwithblockchain/fabric-devkit
 ```
 
-# How to use the `DevKit`
+# How to use the DevKit
 
 | User story | Guide |
 | --- | --- |
