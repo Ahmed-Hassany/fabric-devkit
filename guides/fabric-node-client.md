@@ -29,7 +29,7 @@ To use the extension to interact with the dev network, here are the steps:
 
 # Content
 
-The extension is located [here](../extensionse/fabric-node-client).
+The extension is located [here](../extensions/fabric-node-client).
 
 | Item | Description |
 | --- | --- |
