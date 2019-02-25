@@ -5,7 +5,7 @@ COMMAND="$1"
 SUBCOMMAND="$2"
 
 # Network
-network_subcommand_message="Useage: $0 network artefacts | start | init | upgrade"
+network_subcommand_message="Usage: $0 network artefacts | start | init | upgrade"
 network_name="dev_fabric-network"
 
 function createCryptoChannelArtefacts(){
@@ -84,7 +84,7 @@ function network(){
 # CA Client
 ca_client_image="workingwithblockchain/ca-client-toolkit"
 ca_client_container="ca.client.org1.dev"
-ca_client_subcommand_message="Useage: $0 ca-client image | cli | start | clean"
+ca_client_subcommand_message="Usage: $0 ca-client image | cli | start | clean"
 
 function buildImageCAClient(){
     pushd ../../extensions/fabric-ca-client
@@ -147,7 +147,7 @@ function caClient(){
 } 
 
 # Fabric Client
-fabric_client_message="Useage: $0 fabric-client image | start | e2e | clean"
+fabric_client_message="Usage: $0 fabric-client image | start | e2e | clean"
 fabric_client_image="workingwithblockchain/fabric-client"
 fabric_client_container="fabric-client.org1.dev"
 
@@ -243,7 +243,7 @@ function fabricClient(){
 }
 
 # Fabric Ops
-fabric_usage_message="Useage: $0 network <subcommand> | ca-client <subcommand> | fabric-client <subcommand> | status | clean"
+fabric_usage_message="Usage: $0 network <subcommand> | ca-client <subcommand> | fabric-client <subcommand> | status | clean"
 
 function fabricOpsStatus(){
     docker ps -a --filter network=$network_name
