@@ -62,7 +62,6 @@ go get github.com/workingwithblockchain/fabric-devkit
 | 0.1 | + Implementation named twoorgs.<br> + Network components based on Fabric 1.1.0 containers and docker compose.<br> + Bash based scripts to support kit orchestration - i.e. macOS and Ubuntu based | + Released.<br> + No further update. |
 | 0.2 | + Support for Fabric 1.4.<br> + A laboratory for platform engineers to learn to create cryptographic materials using cryptogen and configtxgen.<br> + A fabric-ca-client cli extension to enable developer smoke test a running fabric-ca-server.<br> + A Fabric network configured to support development work and laboratory exercises.<br> + Two pre-configured networks: a one-org network, and a two-organisations multi-channel network.<br> + A simple `fabric-node-sdk` based RESTful container intended to enable interactions with the pre-configured networks. | + Released.<br> + Please refer to branch release-0.2 |
 
-Please also refer to this [user journey](https://www.pivotaltracker.com/n/projects/2181160) to follow the DevKit's development lifecycle.
 
 # Contributions and Feedback
 
@@ -77,6 +76,23 @@ It is worth emphasising that the long term goal is to have this project supporte
 | Role | Name |
 | --- | --- |
 | Principal maintainer | Paul Sitoh (Elemental Concept) |
+
+## Development life cycle
+
+The DevKit's development lifecycle is based on the trunk (master) and release methodology see Figure 1.
+
+<figure>
+    <img src="./guides/images/lifecycle.jpg" height="400" width="500"/>
+    <figcaption>Figure 1: Trunk and release</figcaption>
+</figure>
+
+The master branch is where all the latest features are being developed.
+
+Release branch are snapshots of master branch with features that have been earmarked for a stated deliverable version. No new features will be added to released branches. Often there will be a period where you will see a maximum two releases branches. This overlap will be temporary. Once the newer release is stablised, the older version will be designated end-of-life and the branch will be earmarked for deletion.
+
+All bug fixes will be done on appropriate release branches and cherry-picked to the master branch and any live preceeding release branch.
+
+Please also refer to the [user journey](https://www.pivotaltracker.com/n/projects/2181160) to follow the DevKit's development lifecycle.
 
 # Disclaimer
 
