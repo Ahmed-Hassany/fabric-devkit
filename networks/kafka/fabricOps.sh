@@ -7,7 +7,7 @@ SUBCOMMAND="$2"
 network_name="kafka_fabric-network"
 
 # Kafka
-kafka_subcommand_message="Useage: $0 kafka start | clean"
+kafka_subcommand_message="Usage: $0 kafka start | clean"
 
 function smokeKafka(){
     docker-compose -f ./docker-compose.kafka.yaml exec kafka1.network /bin/bash -c '${PWD}/bin/kafka-topics.sh --create --zookeeper zookeeper1.network:2181 --replication-factor 1 --partitions 1 --topic test'
@@ -109,7 +109,7 @@ function clearContainers(){
     docker rm -f $containers
 }
 
-network_subcommand_message="Useage: $0 network start | configure | clean"
+network_subcommand_message="Usage: $0 network start | configure | clean"
 function network(){
     local subcommand="$1"
     case $subcommand in
@@ -151,7 +151,7 @@ function status(){
 }
 
 # FabricOps.sh
-usage_message="Useage: $0 kafka <subcommand> | network <subcommand> | status | clean "
+usage_message="Usage: $0 kafka <subcommand> | network <subcommand> | status | clean "
 
 case $COMMAND in
     "kafka")
