@@ -50,9 +50,7 @@ go get github.com/workingwithblockchain/fabric-devkit
 
 | Item | Description |
 | --- | --- |
-| `chaincodes` | A collection of simple Go chaincodes intended primarily to smoke test the preconfigured networks.<br>
-+ `minimalcc` this is the default chaincode package used to smoke test the [dev network](./guides/dev-network)
-+ `one` and `two` are chaincode packages used to smoke test the [kafka network](.guides/kafka-network) |
+| `chaincodes` | A collection of simple Go chaincodes intended primarily to smoke test the preconfigured networks.<br> + `minimalcc` this is the default chaincode package used to smoke test the [dev network](./guides/dev-network) <br> + `one` and `two` are chaincode packages used to smoke test the [kafka network](.guides/kafka-network) |
 | `extensions` | These are collections of scripts intended to expand the features of the predefined networks. |
 | `guides` | User guides. |
 | `networks` | Preconfigured Fabric network orchestrators. |
