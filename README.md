@@ -33,6 +33,8 @@ drwxr-xr-x  3 <userid>  <groupid>  102  3 Feb 15:44 src
 go get github.com/workingwithblockchain/fabric-devkit
 ```
 
+5. Navigate to the path `$GOPATH/src/github.com/workingwithblockchain/fabric-devkit` and you will find the toolkits.
+
 # How to use the DevKit
 
 | User story | Guide |
