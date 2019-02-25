@@ -76,6 +76,7 @@ It is worth emphasising that the long term goal is to have this project supporte
 | Role | Name |
 | --- | --- |
 | Principal maintainer | Paul Sitoh (Elemental Concept) |
+| Maintainer |Alok Ashtika (Elemental Concept) |
 
 ## Development life cycle
 
