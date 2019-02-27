@@ -243,7 +243,7 @@ function fabricClient(){
 }
 
 # Org2
-add_org2_message="Usage: $0 add-org2 artefacts | join "
+add_org2_message="Usage: $0 add-org2 artefacts | join | validate "
 org1_cli="cli.org1.dev"
 org2_cli="cli.org2.dev"
 
@@ -288,7 +288,10 @@ function joinOrg2(){
     docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.org2.yaml up -d cli.org2.dev
     docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.org2.yaml run --rm $org1_cli /bin/bash -c '${PWD}/scripts/step1AddOrg2.sh'
     docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.org2.yaml run --rm $org2_cli /bin/bash -c '${PWD}/scripts/step2AddOrg2.sh'
+}
 
+function validateOrg2(){
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.org2.yaml run --rm $org2_cli /bin/bash -c '${PWD}/scripts/org2Validate.sh'
 }
 
 function addOrg2(){
@@ -299,6 +302,9 @@ function addOrg2(){
             ;;
         "join")
             joinOrg2
+            ;;
+        "validate")
+            validateOrg2
             ;;
         *)
             echo $add_org2_message
