@@ -243,7 +243,7 @@ function fabricClient(){
 }
 
 # Org2
-add_org2_message="Usage: $0 add-org2 artefacts | join | clean"
+add_org2_message="Usage: $0 add-org2 artefacts | join "
 org1_cli="cli.org1.dev"
 org2_cli="cli.org2.dev"
 
@@ -291,19 +291,6 @@ function joinOrg2(){
 
 }
 
-function cleanOrg2(){
-    if [ -f ./channel-artefacts/org2.json ]; then
-        rm -f ./channel-artefacts/org2.json
-    fi
-
-    if [ -d ./crypto-config/peerOrganizations/org2.dev ]; then
-        rm -rf ./crypto-config/peerOrganizations/org2.dev
-    fi
-
-    docker rm -f peer0.org2.dev
-    docker rm -f cli.org2.dev
-}
-
 function addOrg2(){
     local subcommand="$1"
     case $subcommand in
@@ -312,9 +299,6 @@ function addOrg2(){
             ;;
         "join")
             joinOrg2
-            ;;
-        "clean")
-            cleanOrg2
             ;;
         *)
             echo $add_org2_message

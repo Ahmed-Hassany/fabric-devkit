@@ -55,7 +55,7 @@ The dev network orchestrator is located [here](../networks/dev)
 | `docker-compose.ca-client.yaml` | An orchestration file for [ca-client-cli container](./fabric-ca.md) |
 | `docker-compose.fabric.yaml` | An orchestration file for the dev network |
 | `docker-compose.fabric-client.yaml` | An orchestration [file](#fabricClientCompose) for the Fabric client container |
-| `docker-compose.org2.yaml` | Orchestration file for org2 |
+| `docker-compose.org2.yaml` | Orchestration file for org2 that includes one peer and one cli |
 | `fabricOps.sh` | Please refer to details [here](#fabricOps) |
 | `generate-artefacts.sh` | Script to execute configtxgen and cryptogen tool |
 | `network-config.yaml` | Network configuration file specifying fabric components involve in the network |
@@ -115,7 +115,7 @@ The principal network orchestration script to help you spin-up, tear down and ad
 
 This is the top level command
 
-`./fabricOps.sh network <subcommand> | ca-client <subcommand> | fabric-node-client <subcommand> | status | clean`
+`./fabricOps.sh network <subcommand> | ca-client <subcommand> | fabric-node-client <subcommand> | add-org2 <subcommand> | status | clean`
  
 #### `network` command
 
@@ -170,6 +170,18 @@ Command to add a fabric-client instance to a running Fabric network.
 | `image` | Builds a new Docker image of Fabric client tool |
 | `start` | start an instance of the Fabric client tool |
 | `clean` | remove instance of the Fabric client tool |
+
+#### `add-org2` command
+
+Command to add org2 into the running `dev` network
+
+```
+./fabricOps.sh add-org2 artefacts | join 
+```
+| Subcommand | Description |
+| --- | --- |
+| `artefacts` | Create `org2` related artefacts |
+| `join` | Operations to join `org2` to dev network, this include operations to reconfigure existing channel to facilitating the addition or `org2`. |
 
 #### `status` command
 
