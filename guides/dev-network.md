@@ -55,11 +55,13 @@ The dev network orchestrator is located [here](../networks/dev)
 | `docker-compose.ca-client.yaml` | An orchestration file for [ca-client-cli container](./fabric-ca.md) |
 | `docker-compose.fabric.yaml` | An orchestration file for the dev network |
 | `docker-compose.fabric-client.yaml` | An orchestration [file](#fabricClientCompose) for the Fabric client container |
+| `docker-compose.org2.yaml` | Orchestration file for org2 |
 | `fabricOps.sh` | Please refer to details [here](#fabricOps) |
 | `generate-artefacts.sh` | Script to execute configtxgen and cryptogen tool |
 | `network-config.yaml` | Network configuration file specifying fabric components involve in the network |
 | `org1.yaml` | A configuration file for a client container connecting to the Fabric network |
 | `services.json` | A configuration file intended to help NodeJS based client to read `network-config.yaml` and `org1.yaml` |
+| `org2` | This is a containing artefacts for org2 namely:<br> + `configtx.yaml` channel configuration file for org2:<br> + `org2-crypto.yaml` cryptographic configuration for org2<br> + `generate-artefacts.sh` scripts to be executed as part of `fabricOps.sh` to generate org2 artefacts. |
 
 ## <a name="dotEvn">.env</a>
 
