@@ -159,7 +159,7 @@ Command to create Fabric network related:
 > 2. Upgrading new chaincode: `network upgrade`.
 
 ```
-./fabricOps.sh network artefacts | start | intialize | upgrade
+./fabricOps.sh network artefacts | start | init | upgrade
 ```
 
 | Subcommand | Description |
