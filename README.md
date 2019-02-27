@@ -84,7 +84,7 @@ It is worth emphasising that the long term goal is to have this project supporte
 The DevKit's development lifecycle is based on the trunk (master) and release methodology see Figure 1.
 
 <figure>
-    <img src="./guides/images/lifecycle.jpg" height="350" width="800"/>
+    <img src="./guides/images/lifecycle.jpg" height="350" width="750"/>
     <figcaption>Figure 1: Trunk and release</figcaption>
 </figure>
 
