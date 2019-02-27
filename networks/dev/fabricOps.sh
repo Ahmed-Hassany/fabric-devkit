@@ -242,8 +242,88 @@ function fabricClient(){
     esac
 }
 
+# Org2
+add_org2_message="Usage: $0 add-org2 artefacts | join | clean"
+org1_cli="cli.org1.dev"
+org2_cli="cli.org2.dev"
+
+function org2Artefacts(){
+
+    pushd ./org2
+        docker run --rm \
+        -e "GOPATH=/opt/gopath" \
+        -e "FABRIC_CFG_PATH=/opt/gopath/src/github.com/hyperledger/fabric" \
+        -w="/opt/gopath/src/github.com/hyperledger/fabric" \
+        --volume=${PWD}:/opt/gopath/src/github.com/hyperledger/fabric \
+        hyperledger/fabric-tools \
+        /bin/bash -c '${PWD}/generate-artefacts.sh'
+    popd
+
+    if [[ -f ./org2/channel-artefacts/org2.json && -d ./channel-artefacts ]]; then
+        if [ -f ./channel-artefacts/org2.json ]; then
+            rm -f ./channel-artefacts/org2.json
+        fi
+        mv org2/channel-artefacts/org2.json ./channel-artefacts
+        rm -rf org2/channel-artefacts
+    fi
+
+    if [[ -d ./org2/crypto-config/peerOrganizations && -d ./crypto-config ]]; then
+        if [ -d ./crypto-config/peerOrganizations/org2.dev ]; then
+            rm -rf ./crypto-config/peerOrganizations/org2.dev
+        fi
+
+        cp -r ./org2/crypto-config/peerOrganizations/org2.dev ./crypto-config/peerOrganizations/org2.dev
+        rm -rf ./org2/crypto-config
+
+        pushd ./crypto-config/peerOrganizations/org2.dev/ca
+            PK=$(ls *_sk)
+            mv $PK secret.key
+        popd
+    fi
+
+}
+
+function joinOrg2(){
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.org2.yaml up -d peer0.org2.dev
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.org2.yaml up -d cli.org2.dev
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.org2.yaml run --rm $org1_cli /bin/bash -c '${PWD}/scripts/step1AddOrg2.sh'
+    docker-compose -f ./docker-compose.fabric.yaml -f ./docker-compose.org2.yaml run --rm $org2_cli /bin/bash -c '${PWD}/scripts/step2AddOrg2.sh'
+
+}
+
+function cleanOrg2(){
+    if [ -f ./channel-artefacts/org2.json ]; then
+        rm -f ./channel-artefacts/org2.json
+    fi
+
+    if [ -d ./crypto-config/peerOrganizations/org2.dev ]; then
+        rm -rf ./crypto-config/peerOrganizations/org2.dev
+    fi
+
+    docker rm -f peer0.org2.dev
+    docker rm -f cli.org2.dev
+}
+
+function addOrg2(){
+    local subcommand="$1"
+    case $subcommand in
+        "artefacts")
+            org2Artefacts
+            ;;
+        "join")
+            joinOrg2
+            ;;
+        "clean")
+            cleanOrg2
+            ;;
+        *)
+            echo $add_org2_message
+            ;;
+    esac
+}
+
 # Fabric Ops
-fabric_usage_message="Usage: $0 network <subcommand> | ca-client <subcommand> | fabric-client <subcommand> | status | clean"
+fabric_usage_message="Usage: $0 network <subcommand> | ca-client <subcommand> | fabric-client <subcommand> | add-org2 <subcommand> | status | clean"
 
 function fabricOpsStatus(){
     docker ps -a --filter network=$network_name
@@ -274,6 +354,9 @@ case $COMMAND in
         ;;
     "clean")
         fabricOpsClean
+        ;;
+    "add-org2")
+        addOrg2 $SUBCOMMAND
         ;;
     *)
         echo $fabric_usage_message
