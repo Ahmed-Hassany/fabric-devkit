@@ -16,7 +16,34 @@ This network has been configured to instantiate an organisation comprising one o
    
 2. Run the command `./fabricOps.sh network start` to get the dev network running.
 
-If you wish to stop and restart the network from a clean state run the command `./fabricOps.sh clean`.
+3. Assuming you have chaincode installed (see [setting](#dotEvn)) if you wish to:
+   
+    a) Instantiate a new chaincode, run the command `./fabricOps.sh network init`
+
+    b) Upgrade an existing chaincode (i.e. same name), run the command `./fabricOps.sh network upgrade` -- the script will generate a new version number.
+
+4. To help you debug code, run the command `./fabricOps.sh status` and you will see a list of running containers along this line:
+
+```
+CONTAINER ID        IMAGE                                                                                          COMMAND                  CREATED             STATUS              PORTS                                            NAMES
+3bed8a31d698        dev-peer0.org1.dev-mycc-1.0-a21f64b1b2d2350eb61345597984983a2efce1027733a9446bfd8d1816598c3b   "chaincode -peer.add…"   4 minutes ago       Up 3 minutes                                                         dev-peer0.org1.dev-mycc-1.0
+6252a894ffa0        hyperledger/fabric-tools:latest                                                                "/bin/bash"              4 minutes ago       Up 4 minutes                                                         cli.org1.dev
+e25f0ef5e82c        hyperledger/fabric-peer:1.4.0                                                                  "peer node start"        4 minutes ago       Up 4 minutes        0.0.0.0:7051->7051/tcp, 0.0.0.0:7053->7053/tcp   peer0.org1.dev
+57e75ef3fdc5        hyperledger/fabric-ca:1.4.0                                                                    "/bin/sh -c 'fabric-…"   4 minutes ago       Up 4 minutes        0.0.0.0:7054->7054/tcp                           ca.org1.dev
+b0ec24dc8897        hyperledger/fabric-orderer:1.4.0                                                               "orderer"                4 minutes ago       Up 4 minutes        0.0.0.0:7050->7050/tcp                           orderer.dev
+```
+
+Select the container ID with a name like `dev-*-*-X.X`. Using the above example, it would be named `dev-peer0.org1.dev-mycc-1.0` with container ID `3bed8a31d698`.
+
+Run the command `docker logs 3bed8a31d698` and you will see any logs that exists in the running chaincode. For example,
+
+```
+2019-02-27 14:17:06.067 UTC [minimalcc] Info -> INFO 001 Hello Init
+2019-02-27 14:17:06.068 UTC [minimalcc] Infof -> INFO 002 Name1: Paul Amount1: 10
+2019-02-27 14:17:06.069 UTC [minimalcc] Infof -> INFO 003 Name2: John Amount2: 20
+```
+
+5. To stop and restart the network from a clean state run the command `./fabricOps.sh clean`.
 
 ## <a name="debugChaincode">Debug chaincode</a>
 
