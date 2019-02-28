@@ -8,7 +8,7 @@ The maintainer(s) of this project is grateful to Aladdin for sponsoring the effo
 
 # Design Goals
 
-The design goals of kit are to help developers and platform engineers:
+The design goals of the `DevKit` are to help developers and platform engineers:
 
 * understand the system architecture of Hyperledger Fabric through a series of smoke tests and reference networks;
 * to define, instantiate and configure a Fabric network to support development effort;
@@ -97,6 +97,8 @@ All bug fixes will be done on appropriate release branches and cherry-picked to 
 Please also refer to the [user journey](https://www.pivotaltracker.com/n/projects/2181160) to follow the DevKit's development lifecycle.
 
 # Disclaimer
+
+The sample codes presented in this `DevKit` are intended only to explain concepts and are **not** intended for use in a mission critical or production environment. Should you choose to reproduce the code for production use, you do so at your own risk.
 
 Unless otherwise specified, the artefacts in this repository are distributed under Apache 2 license.
 
