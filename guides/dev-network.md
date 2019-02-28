@@ -69,6 +69,23 @@ The step for debugging SDK app.
 
 5. Modify the file [`docker-compose.fabric-client.yaml`](#fabricClientCompose).
 
+## <a name="addOrg2">Adding Org2</a>
+
+The artefacts needed to support the addition of Org2 are found in the folder [org2](../networks/dev/org2), [docker-compose.org2.yaml](../networks/dev/docker-compose.org2.yaml) and [step1AddOrg2.sh, step2AddOrg2.sh org2Validate.sh](../networks/dev/cli-scripts).
+
+The steps for adding org2 are:
+
+1. Run the command `./fabricOps.sh clean` - this is to ensure that you have a clean network
+
+2. Run `./fabricOps.sh network artefacts`, followed by `./fabricOps.sh network start` and then `./fabricOps.sh network init`.
+
+3. Run `./fabricOps.sh add-org2 artefacts` and followed by `./fabricOps.sh add-org2 join`. You will see console displaying a two step operations. If no error proceed to next step.
+
+4. Run `./fabricOps.sh add-org2 validate`. Ignore the sentence `Error: error sending transaction for invoke: could not send: EOF` and if you see in the console log `proposal response: version:1 response:<status:200 payload:"Payment done" >`, it means org2 has been added. For further confirmation if you run the command `fabricOps.sh status` and if you see a container named `dev-peer0.org-mycc-1.0` it means your org2 has been properly added.
+
+> Note:
+> The error message appears to be caused by a bug in the `peer chaincode invoke` command.
+
 # Content
 
 The dev network orchestrator is located [here](../networks/dev)
@@ -88,7 +105,7 @@ The dev network orchestrator is located [here](../networks/dev)
 | `network-config.yaml` | Network configuration file specifying fabric components involve in the network |
 | `org1.yaml` | A configuration file for a client container connecting to the Fabric network |
 | `services.json` | A configuration file intended to help NodeJS based client to read `network-config.yaml` and `org1.yaml` |
-| `org2` | This is a containing artefacts for org2 namely:<br> + `configtx.yaml` channel configuration file for org2:<br> + `org2-crypto.yaml` cryptographic configuration for org2<br> + `generate-artefacts.sh` scripts to be executed as part of `fabricOps.sh` to generate org2 artefacts. |
+| `org2` | This contains artefacts for org2 namely:<br> + `configtx.yaml` channel configuration file for org2:<br> + `org2-crypto.yaml` cryptographic configuration for org2<br> + `generate-artefacts.sh` scripts to be executed as part of `fabricOps.sh` to generate org2 artefacts. |
 
 ## <a name="dotEvn">.env</a>
 
